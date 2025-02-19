@@ -1,0 +1,2 @@
+class GlucoseCsv < ApplicationRecord
+end
