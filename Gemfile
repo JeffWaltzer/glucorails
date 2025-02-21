@@ -60,3 +60,5 @@ end
 
 
 gem "victor", "~> 0.5.0"
+
+gem "csv", "~> 3.3"
