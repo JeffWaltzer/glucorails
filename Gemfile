@@ -58,3 +58,5 @@ group :development do
   gem "web-console"
 end
 
+
+gem "victor", "~> 0.5.0"
