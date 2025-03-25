@@ -16,3 +16,4 @@ class GlucoseCsv < ApplicationRecord
     ]
   end
 end
+
