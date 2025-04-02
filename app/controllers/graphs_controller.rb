@@ -1,6 +1,6 @@
 class GraphsController < ApplicationController
   def show
-    render xml: <<-SVG
+    render xml: <<~SVG
         <?xml version="1.0"?>
         <svg width="640" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
          <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
