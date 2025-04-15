@@ -1,6 +1,6 @@
 class GraphsController < ApplicationController
   def show
-    render xml: SvgBuilder.new.render_from_csv
+    # TODO: fix to use csv instead of 'junk'
+    render xml: SvgBuilder.new("junk").render_from_csv
   end
-
 end
