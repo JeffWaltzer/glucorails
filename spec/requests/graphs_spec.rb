@@ -25,10 +25,6 @@ RSpec.describe "Graphs", type: :request do
       let(:svg) { xml.at_xpath('/svg').attributes }
       let(:path) { xml.at_xpath('/svg/g/path').attributes }
 
-      xit 'has a title' do
-        expect(title.text).to match "Layer 1"
-      end
-
       it 'has an svg width' do
         expect(svg['width'].value).to eq "640"
       end
