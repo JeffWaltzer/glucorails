@@ -21,19 +21,19 @@ RSpec.describe GlucoseCsv, type: :model do
   end
 
   it 'extracts glucose values' do
+    rows = glucose_csv.glucose_measurements
 
-    row = glucose_csv.glucose_measurements
-
-    expect(row).to eq([DateTime.strptime('02-14-2025 03:56 PM', '%m-%d-%Y %k:%M %p'),
-                       308])
-    # [
-    #  [DateTime.parse('02-14-2025 04:01 PM'),308],
-    #  [DateTime.parse('02-14-2025 03:56 PM'),308],
-    #  [DateTime.parse('02-14-2025 04:06 PM'),299],
-    #  [DateTime.parse('02-14-2025 04:11 PM'),295],
-    # [DateTime.parse(' 02-14-2025 04:21 PM'),302],
-    #  [DateTime.parse(' 02-14-2025 04:26 PM'),300],
-    #  ])
+    expect(rows).to eq(
+     [
+       [DateTime.strptime('02-14-2025 03:56 PM', '%m-%d-%Y %k:%M %p'), 308],
+       [DateTime.strptime('02-14-2025 04:01 PM', '%m-%d-%Y %k:%M %p'), 308],
+       [DateTime.strptime('02-14-2025 04:06 PM', '%m-%d-%Y %k:%M %p'), 299],
+       [DateTime.strptime('02-14-2025 04:11 PM', '%m-%d-%Y %k:%M %p'), 295],
+       [DateTime.strptime('02-14-2025 04:16 PM', '%m-%d-%Y %k:%M %p'), 308],
+       [DateTime.strptime('02-14-2025 04:21 PM', '%m-%d-%Y %k:%M %p'), 302],
+       [DateTime.strptime('02-14-2025 04:26 PM', '%m-%d-%Y %k:%M %p'), 300],
+     ]
+   )
   end
 
 end

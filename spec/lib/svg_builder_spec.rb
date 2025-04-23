@@ -15,7 +15,7 @@ RSpec.describe SvgBuilder do
 
   describe "#points" do
     it "generatest the correct path" do
-      expect(subject.points).to eq("0,308 300,308 600,299")
+      expect(subject.points).to eq("0,30800 300,30800 600,29900")
     end
   end
 
@@ -33,7 +33,7 @@ RSpec.describe SvgBuilder do
     end
 
     let(:svg) { xml.at_xpath('/svg').attributes }
-    let(:polyline) { xml.at_xpath('/svg/g/polyline').attributes }
+    let(:polyline) { xml.at_xpath('/svg/svg/polyline').attributes }
     let(:bounding_box) { xml.at_xpath('/svg/rect').attributes }
 
     it 'has an svg width' do
@@ -45,18 +45,18 @@ RSpec.describe SvgBuilder do
     end
 
     it 'has correct viewBox coordinates scaled to data' do
-      expect(svg['viewBox'].value).to eq "0 299 600 9"
+      expect(svg['viewBox'].value).to eq "0 0 1000 1000"
     end
 
     it 'has a nice bounding box' do
       expect(bounding_box['x'].value.to_i).to eq(0)
-      expect(bounding_box['y'].value.to_i).to eq(299)
-      expect(bounding_box['width'].value.to_i).to eq(600)
-      expect(bounding_box['height'].value.to_i).to eq(9)
+      expect(bounding_box['y'].value.to_i).to eq(0)
+      expect(bounding_box['width'].value.to_i).to eq(1000)
+      expect(bounding_box['height'].value.to_i).to eq(1000)
     end
 
     it 'has a polyline with correct stroke coordinates' do
-      expect(polyline['points'].value).to eq "0,308 300,308 600,299"
+      expect(polyline['points'].value).to eq "0,30800 300,30800 600,29900"
     end
 
     it 'has a polyline with correct stroke color' do

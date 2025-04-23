@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Graphs", type: :request do
   describe "GET /show" do
-    fixtures :glucose_csvs
+    # fixtures :glucose_csvs
 
     it "renders SVG" do
       get "/graphs/1"
@@ -21,24 +21,10 @@ RSpec.describe "Graphs", type: :request do
         xml
       end
 
-      let(:title) { xml.at_xpath('/svg/g/title') }
-      let(:svg) { xml.at_xpath('/svg').attributes }
-      let(:polyline) { xml.at_xpath('/svg/g/polyline').attributes }
-
-      it 'has an svg width' do
-        expect(svg['width'].value).to eq "100%"
-      end
-
-      it 'has an svg height' do
-        expect(svg['height'].value).to eq "100%"
-      end
+      let(:polyline) { xml.at_xpath('/svg/svg/polyline').attributes }
 
       it 'has a polyline d' do
-        expect(polyline['points'].value).to eq "0,98 300,190 600,150 660,200"
-      end
-
-      it 'has a polyline stroke' do
-        expect(polyline['stroke'].value).to eq 'black'
+        expect(polyline['points'].value).to eq "0,30800 300,30800 600,29900 900,29500 1200,30800 1500,30200 1800,30000"
       end
 
     end

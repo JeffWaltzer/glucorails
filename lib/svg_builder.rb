@@ -2,7 +2,7 @@
 class SvgBuilder
   def initialize(data)
     @data = data.dup.map do |datum|
-      [datum.first.to_i, datum.second]
+      [datum.first.to_i, datum.second * 100]
     end
 
     min_x = @data.map(&:first).min
@@ -44,15 +44,16 @@ class SvgBuilder
       height
     ].join(" ")
 
-    vg = Victor::SVG.new viewBox: viewbox,
+    vg = Victor::SVG.new viewBox: [0, 0, 1000, 1000],
                          width: "100%",
                          height: "100%"
-    vg.rect x: x_min,
-            y: y_min,
-            width:,
-            height: height
+    vg.rect x: 0,
+            y: 0,
+            width: 1000,
+            height: 1000,
+            fill: "PaleGreen"
 
-    vg.g do
+    vg.svg viewBox: viewbox do
       vg.polyline points:,
                   fill: :none,
                   stroke: :black
