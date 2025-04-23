@@ -13,15 +13,17 @@ RSpec.describe SvgBuilder do
     )
   }
 
-  describe "#path_d" do
+  describe "#points" do
     it "generatest the correct path" do
-      expect(subject.path_d).to eq("m1739480160,308l1739480460,308l1739480760,299")
+      expect(subject.points).to eq("0,308 300,308 600,299")
     end
   end
 
   describe "#render_from_csv" do
     let(:xml) do
-      xml = Nokogiri::XML.parse(svg_builder.render_from_csv) do |config|
+      raw_svg = svg_builder.render_from_csv
+
+      xml = Nokogiri::XML.parse(raw_svg) do |config|
         config.options = Nokogiri::XML::ParseOptions::STRICT |
                          Nokogiri::XML::ParseOptions::DTDLOAD |
                          Nokogiri::XML::ParseOptions::DTDVALID
@@ -31,30 +33,34 @@ RSpec.describe SvgBuilder do
     end
 
     let(:svg) { xml.at_xpath('/svg').attributes }
-    let(:path) { xml.at_xpath('/svg/g/path').attributes }
+    let(:polyline) { xml.at_xpath('/svg/g/polyline').attributes }
+    let(:bounding_box) { xml.at_xpath('/svg/rect').attributes }
 
     it 'has an svg width' do
-      expect(svg['width'].value).to eq "640"
+      expect(svg['width'].value).to eq "100%"
     end
 
     it 'has an svg height' do
-      expect(svg['height'].value).to eq "480"
+      expect(svg['height'].value).to eq "100%"
     end
 
     it 'has correct viewBox coordinates scaled to data' do
-      expect(svg['viewBox'].value).to eq "1739480160 299 1739480760 308"
+      expect(svg['viewBox'].value).to eq "0 299 600 9"
     end
 
-    it 'has a path with correct stroke coordinates' do
-      expect(path['d'].value).to eq "m1739480160,308l1739480460,308l1739480760,299"
+    it 'has a nice bounding box' do
+      expect(bounding_box['x'].value.to_i).to eq(0)
+      expect(bounding_box['y'].value.to_i).to eq(299)
+      expect(bounding_box['width'].value.to_i).to eq(600)
+      expect(bounding_box['height'].value.to_i).to eq(9)
     end
 
-    it 'has a path with correct stroke color' do
-      expect(path['stroke'].value).to eq "#000000"
+    it 'has a polyline with correct stroke coordinates' do
+      expect(polyline['points'].value).to eq "0,308 300,308 600,299"
     end
 
-    it 'has a path with correct stroke width' do
-      expect(path['stroke-width'].value).to eq "5"
+    it 'has a polyline with correct stroke color' do
+      expect(polyline['stroke'].value).to eq 'black'
     end
   end
 end

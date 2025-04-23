@@ -23,27 +23,24 @@ RSpec.describe "Graphs", type: :request do
 
       let(:title) { xml.at_xpath('/svg/g/title') }
       let(:svg) { xml.at_xpath('/svg').attributes }
-      let(:path) { xml.at_xpath('/svg/g/path').attributes }
+      let(:polyline) { xml.at_xpath('/svg/g/polyline').attributes }
 
       it 'has an svg width' do
-        expect(svg['width'].value).to eq "640"
+        expect(svg['width'].value).to eq "100%"
       end
 
       it 'has an svg height' do
-        expect(svg['height'].value).to eq "480"
+        expect(svg['height'].value).to eq "100%"
       end
 
-      xit 'has a path d' do
-        expect(path['d'].value).to eq "m127,301l58,-69l121,-25l96,-39l68,229"
+      it 'has a polyline d' do
+        expect(polyline['points'].value).to eq "0,98 300,190 600,150 660,200"
       end
 
-      it 'has a path stroke' do
-        expect(path['stroke'].value).to eq '#000000'
+      it 'has a polyline stroke' do
+        expect(polyline['stroke'].value).to eq 'black'
       end
 
-      it 'has a path stroke_width' do
-        expect(path['stroke-width'].value).to eq "5"
-      end
     end
   end
 end
