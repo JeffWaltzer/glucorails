@@ -21,7 +21,8 @@ class GlucoseCsvsController < ApplicationController
 
   # POST /glucose_csvs or /glucose_csvs.json
   def create
-    @glucose_csv = GlucoseCsv.new(glucose_csv_params)
+    csv= create_params[:csv].read
+    @glucose_csv = GlucoseCsv.new(csv: )
 
     respond_to do |format|
       if @glucose_csv.save
@@ -37,7 +38,7 @@ class GlucoseCsvsController < ApplicationController
   # PATCH/PUT /glucose_csvs/1 or /glucose_csvs/1.json
   def update
     respond_to do |format|
-      if @glucose_csv.update(glucose_csv_params)
+      if @glucose_csv.update(create_params)
         format.html { redirect_to @glucose_csv, notice: "Glucose csv was successfully updated." }
         format.json { render :show, status: :ok, location: @glucose_csv }
       else
@@ -64,7 +65,7 @@ class GlucoseCsvsController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def glucose_csv_params
-      params.expect(glucose_csv: [ :csv ])
+    def create_params
+      params.require(:glucose_csv).permit(:csv)
     end
 end
