@@ -62,5 +62,9 @@ RSpec.describe SvgBuilder do
     it 'has a polyline with correct stroke color' do
       expect(polyline['stroke'].value).to eq 'black'
     end
+
+    it 'has a polyline with correct stroke width' do
+      expect(polyline['stroke-width'].value).to eq '1em'
+    end
   end
 end

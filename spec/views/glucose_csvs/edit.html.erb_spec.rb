@@ -15,8 +15,7 @@ RSpec.describe "glucose_csvs/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", glucose_csv_path(glucose_csv), "post" do
-
-      assert_select "textarea[name=?]", "glucose_csv[csv]"
+      assert_select "input[type=file]"
     end
   end
 end

@@ -56,7 +56,8 @@ class SvgBuilder
     vg.svg viewBox: viewbox do
       vg.polyline points:,
                   fill: :none,
-                  stroke: :black
+                  stroke: :black,
+                  stroke_width: "1em"
     end
     vg.render
   end
