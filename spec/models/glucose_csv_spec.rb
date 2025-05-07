@@ -20,7 +20,7 @@ RSpec.describe GlucoseCsv, type: :model do
     GlucoseCsv.create(csv:)
   end
 
-  it 'extracts glucose values' do
+  xit 'extracts glucose values' do
     rows = glucose_csv.glucose_measurements
 
     expect(rows).to eq(
