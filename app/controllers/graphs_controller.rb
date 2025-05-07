@@ -1,8 +1,10 @@
 class GraphsController < ApplicationController
   def show
-    data = GlucoseCsv.find(params_permit[:id])
+    data = GlucoseMeasurement.all.to_a.map do |measurement|
+      [ measurement.measured_at, measurement.glucose ]
+    end
 
-    render xml: SvgBuilder.new(data.glucose_measurements).render_from_csv
+    render xml: SvgBuilder.new(data).render_from_csv
   end
 
   def params_permit

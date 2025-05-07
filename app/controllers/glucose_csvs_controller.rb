@@ -23,13 +23,7 @@ class GlucoseCsvsController < ApplicationController
   def create
     csv= create_params[:csv].read
     @glucose_csv = GlucoseCsv.new(csv:)
-
-    @glucose_csv.glucose_measurements.each do |measurement|
-      GlucoseMeasurement.create!(
-        measured_at: measurement.first,
-        glucose: measurement.second,
-      )
-    end
+    @glucose_csv.create_measurements
 
     respond_to do |format|
       if @glucose_csv.save

@@ -16,4 +16,13 @@ class GlucoseCsv < ApplicationRecord
     #   ]
     # end
   end
+
+  def create_measurements
+    glucose_measurements.each do |measurement|
+      GlucoseMeasurement.create!(
+        measured_at: measurement.first,
+        glucose: measurement.second,
+      )
+    end
+  end
 end
