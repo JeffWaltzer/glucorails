@@ -1,4 +1,5 @@
-class GlucoseCsvParser
+class Glucos    data = [[1,2]]
+eCsvParser
   def initialize(csv)
     @csv = csv
   end

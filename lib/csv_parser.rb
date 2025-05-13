@@ -5,8 +5,9 @@ class CsvParser
 
   def parse
     rows = CSV.parse(
-      @csv.split("\n")
+      @csv.split(/\r*\n/)
         .drop(1)
+        .map(&:chomp)
         .join("\n"), headers: true)
 
     rows.map do |row|
