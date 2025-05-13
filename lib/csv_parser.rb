@@ -10,7 +10,9 @@ class CsvParser
         .map(&:chomp)
         .join("\n"), headers: true)
 
-    rows.map do |row|
+    rows
+      .select { |row| row["Record Type"]=="0" }
+      .map do |row|
       [
         DateTime.strptime(row["Device Timestamp"], "%m-%d-%Y %k:%M %p"),
         row["Historic Glucose mg/dL"].to_i

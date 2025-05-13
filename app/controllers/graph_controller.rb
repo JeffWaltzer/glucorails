@@ -1,4 +1,4 @@
-class GraphsController < ApplicationController
+class GraphController < ApplicationController
   def show
     data = GlucoseMeasurement.all.to_a.map do |measurement|
       [ measurement.measured_at, measurement.glucose ]

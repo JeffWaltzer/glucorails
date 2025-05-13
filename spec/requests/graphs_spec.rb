@@ -8,6 +8,9 @@ RSpec.describe "Graphs", type: :request do
       "FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,03-14-2025 09:52 PM,0,180,,,,,,,,,,,,,,\r",
       "FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,03-14-2025 09:57 PM,0,182,,,,,,,,,,,,,,",
       "FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,03-14-2025 10:02 PM,0,179,,,,,,,,,,,,,,",
+      "FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,02-14-2025 05:17 PM,6,,,,,,,,,,,,,,,",
+      "FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,02-14-2025 05:18 PM,6,,,,,,,,,,,,,,,",
+      "FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,02-14-2025 05:19 PM,6,,,,,,,,,,,,,,,",
     ].join("\r\n")
 
     CsvParser.new(csv).build_measurements
@@ -15,13 +18,13 @@ RSpec.describe "Graphs", type: :request do
 
   describe "GET /show" do
     it "renders SVG" do
-      get "/graphs/1"
+      get "/graph"
       expect(response.body).to include("<svg")
     end
 
     describe "SVG" do
       let(:xml) do
-        get "/graphs/1"
+        get "/graph"
         xml = Nokogiri::XML.parse(response.body) do |config|
           config.options = Nokogiri::XML::ParseOptions::STRICT |
                            Nokogiri::XML::ParseOptions::DTDLOAD |
