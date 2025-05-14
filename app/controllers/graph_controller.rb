@@ -1,12 +1,11 @@
 class GraphController < ApplicationController
   def show
-    data = GlucoseMeasurement.points_for
+    data = GlucoseMeasurement.points_for(date: params_permit[:date])
 
     render xml: SvgBuilder.new(data).render_from_csv
   end
 
   def params_permit
-    params.permit(:id)
+    params.permit(:date)
   end
-
 end

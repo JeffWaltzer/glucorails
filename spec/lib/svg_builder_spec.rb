@@ -36,6 +36,10 @@ RSpec.describe SvgBuilder do
     let(:polyline) { xml.at_xpath('/svg/svg/polyline').attributes }
     let(:bounding_box) { xml.at_xpath('/svg/rect').attributes }
 
+    describe "when there is no data" do
+      it "copes sanely."
+    end
+
     it 'has an svg width' do
       expect(svg['width'].value).to eq "100%"
     end
