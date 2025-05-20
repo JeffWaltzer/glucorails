@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_20_195925) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_20_222903) do
   create_table "glucose_measurements", force: :cascade do |t|
     t.datetime "measured_at", null: false
     t.integer "glucose", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["measured_at"], name: "index_glucose_measurements_on_measured_at", unique: true
   end
 end
