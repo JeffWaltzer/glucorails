@@ -3,15 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe SvgBuilder do
-  subject(:svg_builder) {
-    described_class.new(
-      [
-        [ DateTime.parse("2025-02-14T03:56+07:00"), 308 ],
-        [ DateTime.parse("2025-02-14T04:01+07:00"), 308 ],
-        [ DateTime.parse("2025-02-14T04:06+07:00"), 299 ]
-      ]
-    )
-  }
+  subject(:svg_builder) { described_class.new(data) }
+
+  let(:data) do
+    [
+      [ DateTime.parse("2025-02-14T03:56+07:00"), 308 ],
+      [ DateTime.parse("2025-02-14T04:01+07:00"), 308 ],
+      [ DateTime.parse("2025-02-14T04:06+07:00"), 299 ]
+    ]
+  end
 
   describe "#points" do
     it "generatest the correct path" do
@@ -35,9 +35,14 @@ RSpec.describe SvgBuilder do
     let(:svg) { xml.at_xpath('/svg').attributes }
     let(:polyline) { xml.at_xpath('/svg/svg/polyline').attributes }
     let(:bounding_box) { xml.at_xpath('/svg/rect').attributes }
+    let(:no_data_message) { xml.at_xpath('/svg/text').text.strip }
 
     describe "when there is no data" do
-      it "copes sanely."
+      let(:data) { [] }
+
+      it "copes sanely" do
+        expect(no_data_message).to eq("No data")
+      end
     end
 
     it 'has an svg width' do

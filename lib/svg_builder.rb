@@ -13,31 +13,16 @@ class SvgBuilder
   end
 
   def render_from_csv
-    return "" if @data.empty?
-
-    viewbox = [
-      x_min,
-      y_min,
-      width,
-      height
-    ].join(" ")
-
-    vg = Victor::SVG.new viewBox: [0, 0, 1000, 1000],
-                         width: "100%",
-                         height: "100%"
-    vg.rect x: 0,
-            y: 0,
-            width: 1000,
-            height: 1000,
-            fill: "PaleGreen"
-
-    vg.svg viewBox: viewbox do
-      vg.polyline points:,
-                  fill: :none,
-                  stroke: :black,
-                  stroke_width: "1em"
+    svg_canvas = Victor::SVG.new viewBox: [0, 0, 1000, 1000],
+                                width: "100%",
+                                height: "100%"
+    if @data.empty?
+      empty_graph(svg_canvas)
+    else
+      graph_with_data(svg_canvas)
     end
-    vg.render
+
+    svg_canvas.render
   end
 
   def points
@@ -46,6 +31,32 @@ class SvgBuilder
   end
 
   private
+
+  def empty_graph(svg_canvas)
+    svg_canvas.text "No data"
+  end
+
+  def graph_with_data(svg_canvas)
+    svg_canvas.rect x: 0,
+                    y: 0,
+                    width: 1000,
+                    height: 1000,
+                    fill: "PaleGreen"
+
+    viewbox = [
+      x_min,
+      y_min,
+      width,
+      height
+    ].join(" ")
+
+    svg_canvas.svg viewBox: viewbox do
+      svg_canvas.polyline points:,
+                          fill: :none,
+                          stroke: :black,
+                          stroke_width: "1em"
+    end
+  end
 
   def x_min
     0
