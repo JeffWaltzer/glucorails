@@ -1,19 +1,5 @@
-<%= form_with(model: glucose_csv) do |form| %>
-  <% if glucose_csv.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(glucose_csv.errors.count, "error") %> prohibited this glucose_csv from being saved:</h2>
-
-      <ul>
-        <% glucose_csv.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= form_with do |form| %>
   <div>
-
-
     <%= form.label :csv, style: "display: block" %>
     <%= form.file_field :csv %>
   </div>
