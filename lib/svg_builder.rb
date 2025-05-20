@@ -12,31 +12,9 @@ class SvgBuilder
     end
   end
 
-  def x_min
-    0
-  end
-
-  def y_min
-    @data.map(&:second).min
-  end
-
-  def x_max
-    @data.map(&:first).map(&:to_i).max
-  end
-
-  def y_max
-    @data.map(&:second).max
-  end
-
-  def width
-    x_max - x_min
-  end
-
-  def height
-    y_max - y_min
-  end
-
   def render_from_csv
+    return "" if @data.empty?
+
     viewbox = [
       x_min,
       y_min,
@@ -62,12 +40,38 @@ class SvgBuilder
     vg.render
   end
 
-  def point_string(point)
-    "#{point.first.to_i},#{point.second}"
-  end
-
   def points
     point_strings = @data.map { |p| point_string(p) }
     point_strings.join(" ")
+  end
+
+  private
+
+  def x_min
+    0
+  end
+
+  def y_min
+    @data.map(&:second).min
+  end
+
+  def x_max
+    @data.map(&:first).map(&:to_i).max
+  end
+
+  def y_max
+    @data.map(&:second).max
+  end
+
+  def width
+    x_max - x_min
+  end
+
+  def height
+    y_max - y_min
+  end
+
+  def point_string(point)
+    "#{point.first.to_i},#{point.second}"
   end
 end
