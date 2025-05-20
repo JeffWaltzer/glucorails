@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  resources :glucose_csvs
+  resources :glucose_csvs, only: [:new, :create]
   # get "up" => "rails/health#show", as: :rails_health_check
-  root "glucose_csvs#index"
 
   get "graph", to: "graph#show"
+
+  root "graph#show"
 end

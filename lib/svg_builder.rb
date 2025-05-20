@@ -50,7 +50,7 @@ class SvgBuilder
       height
     ].join(" ")
 
-    svg_canvas.svg viewBox: viewbox do
+    svg_canvas.svg viewBox: viewbox, preserveAspectRatio: :none do
       svg_canvas.polyline points:,
                           fill: :none,
                           stroke: :black,

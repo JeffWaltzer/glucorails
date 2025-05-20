@@ -25,16 +25,11 @@ RSpec.describe "Graphs", type: :request do
     describe "SVG" do
       let(:xml) do
         get "/graph"
-        xml = Nokogiri::XML.parse(response.body) do |config|
-          config.options = Nokogiri::XML::ParseOptions::STRICT |
-                           Nokogiri::XML::ParseOptions::DTDLOAD |
-                           Nokogiri::XML::ParseOptions::DTDVALID
-        end
-        xml.remove_namespaces!
-        xml
+
+        Nokogiri::HTML.parse(response.body)
       end
 
-      let(:polyline) { xml.at_xpath('/svg/svg/polyline').attributes }
+      let(:polyline) { xml.at_xpath('//svg/svg/polyline').attributes }
       
       it 'has a polyline d' do
         expect(polyline['points'].value).to eq "0,18000 300,18200 600,17900"

@@ -1,10 +1,10 @@
-<%= form_with do |form| %>
+<%= form_with method: :post, url: glucose_csvs_path do |form| %>
   <div>
     <%= form.label :csv, style: "display: block" %>
     <%= form.file_field :csv %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit  %>
   </div>
 <% end %>
