@@ -19,7 +19,7 @@ RSpec.describe GlucoseCsvsController, type: :controller do
     end
 
     it "creates the measurement points" do
-      post :create, params: { glucose_csv: { csv: uploaded_file } }
+      put :create, params: { glucose_csv: { csv: uploaded_file } }
 
       expect(GlucoseMeasurement.count).to eq(3)
     end
