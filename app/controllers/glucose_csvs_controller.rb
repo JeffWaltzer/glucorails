@@ -1,6 +1,6 @@
 class GlucoseCsvsController < ApplicationController
   def create
-    CsvParser.new(uploaded_csv).build_measurements
+    CsvParser.new(uploaded_csv).save_new_measurements
 
     redirect_to graph_path
   end

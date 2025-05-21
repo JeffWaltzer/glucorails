@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe CsvParser do
   describe "#build_measurement" do
     let(:csv_data) do
@@ -10,10 +12,18 @@ RSpec.describe CsvParser do
     end
 
     it "calls create for each record" do
-      allow(GlucoseMeasurement).to receive(:create!)
-      CsvParser.new(csv_data).build_measurements
+      CsvParser.new(csv_data).save_new_measurements
 
-      expect(GlucoseMeasurement).to have_received(:create!).twice
+      expect(GlucoseMeasurement.count).to eq(2)
+    end
+
+    context "when there is duplicate data already present" do
+      it "does not store the duplicates" do
+        CsvParser.new(csv_data).save_new_measurements
+        CsvParser.new(csv_data).save_new_measurements
+
+        expect(GlucoseMeasurement.count).to eq(2)
+      end
     end
   end
 end

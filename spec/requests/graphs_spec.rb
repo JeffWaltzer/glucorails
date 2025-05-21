@@ -10,10 +10,10 @@ RSpec.describe "Graphs", type: :request do
       "FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,03-14-2025 10:02 PM,0,179,,,,,,,,,,,,,,",
       "FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,02-14-2025 05:17 PM,6,,,,,,,,,,,,,,,",
       "FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,02-14-2025 05:18 PM,6,,,,,,,,,,,,,,,",
-      "FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,02-14-2025 05:19 PM,6,,,,,,,,,,,,,,,",
+      "FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,02-14-2025 05:19 PM,6,,,,,,,,,,,,,,,"
     ].join("\r\n")
 
-    CsvParser.new(csv).build_measurements
+    CsvParser.new(csv).save_new_measurements
   end
 
   describe "GET /show" do
@@ -30,11 +30,10 @@ RSpec.describe "Graphs", type: :request do
       end
 
       let(:polyline) { xml.at_xpath('//svg/svg/polyline').attributes }
-      
+
       it 'has a polyline d' do
         expect(polyline['points'].value).to eq "0,18000 300,18200 600,17900"
       end
-
     end
   end
 end

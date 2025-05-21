@@ -22,16 +22,26 @@ class CsvParser
       end
   end
 
-  def build_measurements
-    # existing_measurements = GlucoseMeasurement.pluck(:measured_at, :glucose)
-    # new_measurements = parse - existing_measurements
+  def existing_measurement_times
+    GlucoseMeasurement.pluck(:measured_at)
+  end
 
-    # new_measurements.each do |measurement|
-    parse.each do |measurement|
-      GlucoseMeasurement.create!(
+  def new_measurements
+    parse.map do |measurement|
+      GlucoseMeasurement.new(
         measured_at: measurement.first,
         glucose: measurement.second,
       )
     end
+  end
+
+  def measurements_to_save
+    new_measurements.reject do |measurement|
+      existing_measurement_times.include?(measurement.measured_at)
+    end
+  end
+
+  def save_new_measurements
+    measurements_to_save.each(&:save!)
   end
 end
