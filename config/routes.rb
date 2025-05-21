@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :glucose_csvs, only: [:new, :create]
+  resource :csv_upload, only: [:new, :create]
   # get "up" => "rails/health#show", as: :rails_health_check
 
   get "graph", to: "graph#show"

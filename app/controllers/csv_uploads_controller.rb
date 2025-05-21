@@ -1,4 +1,4 @@
-class GlucoseCsvsController < ApplicationController
+class CsvUploadsController < ApplicationController
   def create
     CsvParser.new(uploaded_csv).save_new_measurements
 

@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 class CsvParser
   def initialize(csv)
     @csv = csv

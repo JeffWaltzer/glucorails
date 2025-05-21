@@ -28,7 +28,7 @@ FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,03-14-2025 11:02 PM,0,127
     it 'uploads file' do
       # ToDo: stop using a fixture file that isn't even a fixture.
       csv_file = fixture_file_upload("data/glucose.csv", "application/csv")
-      post "/glucose_csvs", params: { csv: csv_file }
+      post csv_upload_path, params: { csv: csv_file }
 
       expect(GlucoseMeasurement.count).to eq(15)
       expect(GlucoseMeasurement.first.measured_at).to eq(
@@ -37,7 +37,7 @@ FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,03-14-2025 11:02 PM,0,127
     end
 
     it 'barfs if there is no uploaded file' do
-      post "/glucose_csvs"
+      post csv_upload_path
 
       expect(response.code).to eq "400"
     end

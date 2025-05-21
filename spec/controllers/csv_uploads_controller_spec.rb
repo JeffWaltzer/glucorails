@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe GlucoseCsvsController, type: :controller do
+RSpec.describe CsvUploadsController, type: :controller do
   describe "#create" do
     let(:csv) do
       <<~CSV.chomp
