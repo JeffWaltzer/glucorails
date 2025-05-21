@@ -21,7 +21,7 @@ class CsvParser
   end
 
   def existing_measurement_times
-    GlucoseMeasurement.pluck(:measured_at)
+    @existing_measurement_times ||= GlucoseMeasurement.pluck(:measured_at)
   end
 
   def new_measurements
