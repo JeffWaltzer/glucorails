@@ -28,7 +28,7 @@ class CsvParser
     parse.map do |measurement|
       GlucoseMeasurement.new(
         measured_at: measurement.first,
-        glucose: measurement.second,
+        glucose: measurement.second
       )
     end
   end
@@ -40,6 +40,13 @@ class CsvParser
   end
 
   def save_new_measurements
-    measurements_to_save.each(&:save!)
+    GlucoseMeasurement.insert_all(
+      measurements_to_save.map do |measurement|
+        {
+          measured_at: measurement.measured_at,
+          glucose: measurement.glucose
+        }
+      end
+    )
   end
 end
