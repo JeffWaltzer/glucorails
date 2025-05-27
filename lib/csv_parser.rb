@@ -33,20 +33,14 @@ class CsvParser
     end
   end
 
-  def measurements_to_save
-    new_measurements.reject do |measurement|
-      existing_measurement_times.include?(measurement.measured_at)
-    end
-  end
-
   def save_new_measurements
-    GlucoseMeasurement.insert_all(
-      measurements_to_save.map do |measurement|
-        {
-          measured_at: measurement.measured_at,
-          glucose: measurement.glucose
-        }
-      end
-    )
+    to_save = new_measurements.map do |measurement|
+      {
+        measured_at: measurement.measured_at,
+        glucose: measurement.glucose
+      }
+    end
+ 
+    GlucoseMeasurement.insert_all(to_save, unique_by: :measured_at, returning: false)
   end
 end
