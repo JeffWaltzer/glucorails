@@ -8,3 +8,7 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+.turbo-progress-bar {
+ height: 8px;
+  background: #ff3fff; /* Cyan blue 🎨 */
+}
