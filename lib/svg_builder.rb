@@ -2,20 +2,20 @@
 class SvgBuilder
   def initialize(data)
     @data = data.dup.map do |datum|
-      [datum.first.to_i, datum.second * 100]
+      [ datum.first.to_i, datum.second * 100 ]
     end
 
     min_x = @data.map(&:first).min
 
     @data = @data.map do |point|
-      [point.first - min_x, point.second]
+      [ point.first - min_x, point.second ]
     end
   end
 
   def render_from_csv
-    svg_canvas = Victor::SVG.new viewBox: [0, 0, 1000, 1000],
-                                width: "100%",
-                                height: "100%"
+    svg_canvas = Victor::SVG.new viewbox: [ 0, 0, 1000, 500 ],
+                                preserveAspectRatio: :none,
+                                style: {width: "100%", height: "100%"}
     if @data.empty?
       empty_graph(svg_canvas)
     else
@@ -40,7 +40,7 @@ class SvgBuilder
     svg_canvas.rect x: 0,
                     y: 0,
                     width: 1000,
-                    height: 1000,
+                    height: 400,
                     fill: "PaleGreen"
 
     viewbox = [
@@ -50,7 +50,10 @@ class SvgBuilder
       height
     ].join(" ")
 
-    svg_canvas.svg viewBox: viewbox, preserveAspectRatio: :none do
+    svg_canvas.svg viewBox: viewbox,
+                   preserveAspectRatio: :none,
+                   width: "1000",
+                   height: "400" do
       svg_canvas.polyline points:,
                           fill: :none,
                           stroke: :black,
