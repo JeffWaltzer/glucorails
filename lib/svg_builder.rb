@@ -49,22 +49,30 @@ class SvgBuilder
     svg_canvas.line id: 'x-axis', x1: 0, x2: 1000, y1: 500 , y2: 500, stroke: :black
     svg_canvas.line id: 'y-axis', x1: 1, x2: 1, y1: 0 , y2: 500, stroke: :black
 
-    10.times do |index|
+    (0..10).each do |index|
       svg_canvas.line class: 'x-tick',
-                      x1: 100*(index+1),
-                      x2: 100*(index+1),
+                      x1: 100*(index),
+                      x2: 100*(index),
                       y1: 500 ,
                       y2: 490,
                       stroke: :black
     end
 
-    10.times do |index|
+    (0..10).each do |index|
       svg_canvas.line class: 'y-tick',
                       x1: 0,
                       x2: 10,
-                      y1: 50*(index+1) ,
-                      y2: 50*(index+1),
+                      y1: 50*(index),
+                      y2: 50*(index),
                       stroke: :black
+
+      y = ((y_max-y_min)*index/10.0 + y_min)/100.0
+
+      svg_canvas.text y.round,
+                      x: 0,
+                      y: 50*(10-index),
+                      class: 'y-tick-label'
+
     end
 
 

@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe SvgBuilder do
 
   def assert_x_tick_mark(index)
-    expect(x_ticks[index]['x1']).to eq(((index + 1) * 100).to_s)
-    expect(x_ticks[index]['x2']).to eq(((index + 1) * 100).to_s)
+    expect(x_ticks[index]['x1']).to eq(((index ) * 100).to_s)
+    expect(x_ticks[index]['x2']).to eq(((index ) * 100).to_s)
     expect(x_ticks[index]['y1']).to eq '500'
     expect(x_ticks[index]['y2']).to eq '490'
   end
@@ -14,8 +14,8 @@ RSpec.describe SvgBuilder do
   def assert_y_tick_mark(index)
     expect(y_ticks[index]['x1']).to eq '0'
     expect(y_ticks[index]['x2']).to eq '10'
-    expect(y_ticks[index]['y1']).to eq ((index+1)* 50).to_s
-    expect(y_ticks[index]['y2']).to eq ((index+1)* 50).to_s
+    expect(y_ticks[index]['y1']).to eq ((index)* 50).to_s
+    expect(y_ticks[index]['y2']).to eq ((index)* 50).to_s
   end
 
   subject(:svg_builder) { described_class.new(data) }
@@ -57,6 +57,9 @@ RSpec.describe SvgBuilder do
     let(:x_ticks) {xml.css('.x-tick')}
     let(:y_ticks) {xml.css('.y-tick')}
 
+    let(:y_tick_labels) {xml.css('.y-tick-label')}
+    let(:y_tick_text) {y_tick_labels.map(&:text).map(&:strip)}
+
     describe "when there is no data" do
       let(:data) { [] }
 
@@ -72,6 +75,18 @@ RSpec.describe SvgBuilder do
       expect(x_line['y2'].value).to eq '500'
     end
 
+    it 'has correct first y tick label' do
+      expect(y_tick_text[0]).to eq "299"
+      expect(y_tick_labels[0]['x']).to eq('0')
+      expect(y_tick_labels[0]['y']).to eq('500')
+    end
+
+    it 'has correct last y tick label' do
+      expect(y_tick_text[10]).to eq "308"
+      expect(y_tick_labels[10]['x']).to eq('0')
+      expect(y_tick_labels[10]['y']).to eq('0')
+    end
+
     it 'has y-axis' do
       expect(y_line['x1'].value).to eq '1'
       expect(y_line['x2'].value).to eq '1'
@@ -82,11 +97,21 @@ RSpec.describe SvgBuilder do
     it "has correct 1st x tick" do
       assert_x_tick_mark(0)
     end
+
     it "has correct 5th x tick" do
       assert_x_tick_mark(4)
     end
-    it "has correct 10th x tick" do
+
+    it "has correct 8th x tick" do
+      assert_x_tick_mark(7)
+    end
+
+    it "has correct 9th x tick" do
       assert_x_tick_mark(9)
+    end
+
+    it "has correct 10th x tick" do
+      assert_x_tick_mark(10)
     end
 
     it "has correct 1st y tick" do
