@@ -39,17 +39,15 @@ class SvgBuilder
   end
 
   def graph_with_data(svg_canvas)
-    svg_canvas.rect x: 0,
-                    y: 0,
-                    width: 1000,
-                    height: 500,
-                    fill: "PaleGreen"
     viewbox = [
       x_min,
       y_min,
       width,
       height
     ].join(" ")
+
+    svg_canvas.line x1: 0, x2: 1000, y1: 500 , y2: 500, stroke: :black
+    svg_canvas.line x1: 1, x2: 1, y1: 0 , y2: 500, stroke: :black
 
     svg_canvas.svg viewBox: viewbox,
                    preserveAspectRatio: :none,

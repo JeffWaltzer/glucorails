@@ -34,8 +34,10 @@ RSpec.describe SvgBuilder do
 
     let(:svg) { xml.at_xpath('/svg').attributes }
     let(:polyline) { xml.at_xpath('/svg/svg/polyline').attributes }
-    let(:bounding_box) { xml.at_xpath('/svg/rect').attributes }
     let(:no_data_message) { xml.at_xpath('/svg/text').text.strip }
+
+    let(:x_line) {xml.xpath('(/svg/line)')[0].attributes}
+    let(:y_line) {xml.xpath('(/svg/line)')[1].attributes}
 
     describe "when there is no data" do
       let(:data) { [] }
@@ -43,6 +45,20 @@ RSpec.describe SvgBuilder do
       it "copes sanely" do
         expect(no_data_message).to eq("No data")
       end
+    end
+
+    it 'has x-axis' do
+      expect(x_line['x1'].value).to eq '0'
+      expect(x_line['x2'].value).to eq '1000'
+      expect(x_line['y1'].value).to eq '500'
+      expect(x_line['y2'].value).to eq '500'
+    end
+
+    it 'has y-axis' do
+      expect(y_line['x1'].value).to eq '1'
+      expect(y_line['x2'].value).to eq '1'
+      expect(y_line['y1'].value).to eq '0'
+      expect(y_line['y2'].value).to eq '500'
     end
 
     it 'has an svg width' do
@@ -55,13 +71,6 @@ RSpec.describe SvgBuilder do
 
     it 'has correct viewBox coordinates' do
       expect(svg['viewBox'].value).to eq "0 0 1000 1000"
-    end
-
-    it 'has a nice bounding box' do
-      expect(bounding_box['x'].value.to_i).to eq(0)
-      expect(bounding_box['y'].value.to_i).to eq(0)
-      expect(bounding_box['width'].value.to_i).to eq(1000)
-      expect(bounding_box['height'].value.to_i).to eq(1000)
     end
 
     it 'has a polyline with correct stroke coordinates' do
