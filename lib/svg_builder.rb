@@ -13,7 +13,7 @@ class SvgBuilder
   end
 
   def render_from_csv
-    svg_canvas = Victor::SVG.new viewbox: [ 0, 0, 1000, 500 ],
+    svg_canvas = Victor::SVG.new viewBox: [ 0, 0, 1000, 1000 ],
                                 preserveAspectRatio: :none,
                                 style: {width: "100%", height: "100%"}
     if @data.empty?
@@ -40,7 +40,7 @@ class SvgBuilder
     svg_canvas.rect x: 0,
                     y: 0,
                     width: 1000,
-                    height: 400,
+                    height: 1000,
                     fill: "PaleGreen"
 
     viewbox = [
