@@ -69,8 +69,8 @@ class SvgBuilder
       y = ((y_max-y_min)*index/10.0 + y_min)/100.0
 
       svg_canvas.text y.round,
-                      x: 0,
-                      y: 50*(10-index),
+                      x: 12,
+                      y: 50*(10-index)+5,
                       class: 'y-tick-label'
 
     end
