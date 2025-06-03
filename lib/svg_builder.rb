@@ -58,6 +58,15 @@ class SvgBuilder
                       stroke: :black
     end
 
+    10.times do |index|
+      svg_canvas.line class: 'y-tick',
+                      x1: 0,
+                      x2: 10,
+                      y1: 50*(index+1) ,
+                      y2: 50*(index+1),
+                      stroke: :black
+    end
+
 
     svg_canvas.svg viewBox: viewbox,
                    preserveAspectRatio: :none,
