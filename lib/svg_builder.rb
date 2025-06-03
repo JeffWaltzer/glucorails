@@ -49,6 +49,16 @@ class SvgBuilder
     svg_canvas.line id: 'x-axis', x1: 0, x2: 1000, y1: 500 , y2: 500, stroke: :black
     svg_canvas.line id: 'y-axis', x1: 1, x2: 1, y1: 0 , y2: 500, stroke: :black
 
+    10.times do |index|
+      svg_canvas.line class: 'x-tick',
+                      x1: 100*(index+1),
+                      x2: 100*(index+1),
+                      y1: 500 ,
+                      y2: 490,
+                      stroke: :black
+    end
+
+
     svg_canvas.svg viewBox: viewbox,
                    preserveAspectRatio: :none,
                    width: "100%",
