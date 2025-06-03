@@ -42,7 +42,7 @@ class SvgBuilder
     svg_canvas.rect x: 0,
                     y: 0,
                     width: 1000,
-                    height: 1000,
+                    height: 500,
                     fill: "PaleGreen"
     viewbox = [
       x_min,
