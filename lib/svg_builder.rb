@@ -15,7 +15,9 @@ class SvgBuilder
   def render_from_csv
     svg_canvas = Victor::SVG.new viewBox: [ 0, 0, 1000, 1000 ],
                                 preserveAspectRatio: :none,
-                                style: {width: "100%", height: "100%"}
+                                 height: '100%',
+                                 width: '100%'
+                                 # /style: {width: "640", height: "480"}
     if @data.empty?
       empty_graph(svg_canvas)
     else
@@ -42,7 +44,6 @@ class SvgBuilder
                     width: 1000,
                     height: 1000,
                     fill: "PaleGreen"
-
     viewbox = [
       x_min,
       y_min,
@@ -52,8 +53,8 @@ class SvgBuilder
 
     svg_canvas.svg viewBox: viewbox,
                    preserveAspectRatio: :none,
-                   width: "1000",
-                   height: "400" do
+                   width: "100%",
+                   height: "50%" do
       svg_canvas.polyline points:,
                           fill: :none,
                           stroke: :black,

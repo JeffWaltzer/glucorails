@@ -53,7 +53,7 @@ RSpec.describe SvgBuilder do
       expect(svg['height'].value).to eq "100%"
     end
 
-    it 'has correct viewBox coordinates scaled to data' do
+    it 'has correct viewBox coordinates' do
       expect(svg['viewBox'].value).to eq "0 0 1000 1000"
     end
 

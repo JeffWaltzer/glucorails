@@ -11,9 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.0].define(version: 2025_05_20_222903) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_catalog.plpgsql"
-
   create_table "glucose_measurements", force: :cascade do |t|
     t.datetime "measured_at", null: false
     t.integer "glucose", null: false
