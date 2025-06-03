@@ -36,8 +36,8 @@ RSpec.describe SvgBuilder do
     let(:polyline) { xml.at_xpath('/svg/svg/polyline').attributes }
     let(:no_data_message) { xml.at_xpath('/svg/text').text.strip }
 
-    let(:x_line) {xml.xpath('(/svg/line)')[0].attributes}
-    let(:y_line) {xml.xpath('(/svg/line)')[1].attributes}
+    let(:x_line) {xml.css('#x-axis').first.attributes}
+    let(:y_line) {xml.css('#y-axis').first.attributes}
 
     describe "when there is no data" do
       let(:data) { [] }
