@@ -5,9 +5,11 @@ class SvgBuilder
       [ datum.first.to_i, datum.second * 100 ]
     end
 
+    # @min_x = @data.map(&:first).min
     min_x = @data.map(&:first).min
 
     @data = @data.map do |point|
+      # [ point.first - @min_x, point.second ]
       [ point.first - min_x, point.second ]
     end
   end
@@ -74,6 +76,13 @@ class SvgBuilder
                       class: 'y-tick-label'
 
     end
+
+    # (0..10).each do |index|
+    #   label =Time.at( ((x_max-x_min)*index/10.0 + x_min + @min_x ))
+    #   svg_canvas.text label.strftime('%m/%d'),
+    #                   x: 100*(index) - 17,
+    #                   y: 485
+    # end
 
 
     svg_canvas.svg viewBox: viewbox,
