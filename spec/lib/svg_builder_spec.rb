@@ -60,6 +60,9 @@ RSpec.describe SvgBuilder do
     let(:y_tick_labels) {xml.css('.y-tick-label')}
     let(:y_tick_text) {y_tick_labels.map(&:text).map(&:strip)}
 
+    let(:x_tick_labels) {xml.css('.x-tick-label')}
+    let(:x_tick_text) {x_tick_labels.map(&:text).map(&:strip)}
+
     describe "when there is no data" do
       let(:data) { [] }
 
@@ -86,6 +89,20 @@ RSpec.describe SvgBuilder do
       expect(y_tick_labels[10]['x']).to eq('12')
       expect(y_tick_labels[10]['y']).to eq('5')
     end
+
+    it 'has correct first x tick label' do
+      expect(x_tick_text[0]).to eq "02/13"
+      expect(x_tick_labels[0]['x']).to eq('-17')
+      expect(x_tick_labels[0]['y']).to eq('485')
+    end
+
+    it 'has correct last x tick label' do
+      expect(x_tick_text[10]).to eq "02/13"
+      expect(x_tick_labels[10]['x']).to eq('983')
+      expect(x_tick_labels[10]['y']).to eq('485')
+    end
+
+
 
     it 'has y-axis' do
       expect(y_line['x1'].value).to eq '1'
