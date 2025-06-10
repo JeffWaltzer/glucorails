@@ -1,8 +1,4 @@
-class SvgPoints < Array
-  extend Forwardable
-
-  def_delegators :@data, :map, :min, :max, :empty?
-
+class SvgPoints
   attr_reader :min_x
 
   def initialize(raw_data)
@@ -17,30 +13,32 @@ class SvgPoints < Array
     end
   end
 
+  def empty?
+    @data.empty?
+  end
+
   def points
-    point_strings = @data.map { |p| point_string(p) }
-    point_strings.join(" ")
+    @data.map { |p| point_string(p) }.join(" ")
   end
 
   def point_string(point)
     "#{point.first.to_i},#{point.second}"
   end
 
-
   def x_min
     0
   end
 
   def y_min
-    @data.map(&:second).min
+    @y_min ||= @data.map(&:second).min
   end
 
   def x_max
-    @data.map(&:first).map(&:to_i).max
+    @x_max ||= @data.map(&:first).map(&:to_i).max
   end
 
   def y_max
-    @data.map(&:second).max
+    @y_max ||= @data.map(&:second).max
   end
 
   def width
@@ -49,5 +47,9 @@ class SvgPoints < Array
 
   def height
     y_max - y_min
+  end
+
+  def viewbox
+    [ x_min, y_min, width, height ].join(" ")
   end
 end
