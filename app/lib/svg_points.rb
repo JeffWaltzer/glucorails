@@ -21,10 +21,6 @@ class SvgPoints
     @data.map { |p| point_string(p) }.join(" ")
   end
 
-  def point_string(point)
-    "#{point.first.to_i},#{point.second}"
-  end
-
   def x_min
     0
   end
@@ -51,5 +47,11 @@ class SvgPoints
 
   def viewbox
     [ x_min, y_min, width, height ].join(" ")
+  end
+
+  private
+
+  def point_string(point)
+    "#{point.first.to_i},#{point.second}"
   end
 end
