@@ -1,5 +1,4 @@
-
-class SvgBuilder
+class SvgBuilder < Array
   def initialize(data)
     @data = data.dup.map do |datum|
       [ datum.first.to_i, datum.second * 100 ]
