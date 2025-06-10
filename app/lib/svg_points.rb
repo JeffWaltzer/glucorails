@@ -25,4 +25,29 @@ class SvgPoints < Array
   def point_string(point)
     "#{point.first.to_i},#{point.second}"
   end
+
+
+  def x_min
+    0
+  end
+
+  def y_min
+    @data.map(&:second).min
+  end
+
+  def x_max
+    @data.map(&:first).map(&:to_i).max
+  end
+
+  def y_max
+    @data.map(&:second).max
+  end
+
+  def width
+    x_max - x_min
+  end
+
+  def height
+    y_max - y_min
+  end
 end

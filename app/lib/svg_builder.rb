@@ -6,8 +6,8 @@ class SvgBuilder
   def render_from_csv
     svg_canvas = Victor::SVG.new viewBox: [ 0, 0, 1000, 1000 ],
                                 preserveAspectRatio: :none,
-                                 height: '100%',
-                                 width: '100%'
+                                height: '100%',
+                                width: '100%'
 
     if @data.empty?
       empty_graph(svg_canvas)
@@ -24,17 +24,7 @@ class SvgBuilder
     svg_canvas.text "No data"
   end
 
-  def graph_with_data(svg_canvas)
-    viewbox = [
-      x_min,
-      y_min,
-      width,
-      height
-    ].join(" ")
-
-    svg_canvas.line id: 'x-axis', x1: 0, x2: 1000, y1: 500 , y2: 500, stroke: :black
-    svg_canvas.line id: 'y-axis', x1: 1, x2: 1, y1: 0 , y2: 500, stroke: :black
-
+  def x_axis_ticks(svg_canvas)
     (0..10).each do |index|
       svg_canvas.line class: 'x-tick',
                       x1: 100*(index),
@@ -42,8 +32,21 @@ class SvgBuilder
                       y1: 500 ,
                       y2: 490,
                       stroke: :black
-    end
 
+      label =Time.at( ((@data.x_max-@data.x_min)*index/10.0 + @data.x_min + @data.min_x ))
+      svg_canvas.text label.strftime('%m/%d'),
+                      x: 100*(index) - 17,
+                      y: 485,
+                      class: 'x-tick-label'
+    end
+  end
+
+  def x_axis(svg_canvas)
+    svg_canvas.line id: 'x-axis', x1: 0, x2: 1000, y1: 500 , y2: 500, stroke: :black
+    x_axis_ticks(svg_canvas)
+  end
+
+  def y_axis_ticks(svg_canvas)
     (0..10).each do |index|
       svg_canvas.line class: 'y-tick',
                       x1: 0,
@@ -52,23 +55,29 @@ class SvgBuilder
                       y2: 50*(index),
                       stroke: :black
 
-      y = ((y_max-y_min)*index/10.0 + y_min)/100.0
-
+      y = ((@data.y_max-@data.y_min)*index/10.0 + @data.y_min)/100.0
       svg_canvas.text y.round,
                       x: 12,
                       y: 50*(10-index)+5,
                       class: 'y-tick-label'
-
     end
+  end
 
-    (0..10).each do |index|
-      label =Time.at( ((x_max-x_min)*index/10.0 + x_min + @data.min_x ))
-      svg_canvas.text label.strftime('%m/%d'),
-                      x: 100*(index) - 17,
-                      y: 485,
-                      class: 'x-tick-label'
-    end
+  def y_axis(svg_canvas)
+    svg_canvas.line id: 'y-axis', x1: 1, x2: 1, y1: 0 , y2: 500, stroke: :black
+    y_axis_ticks(svg_canvas)
+  end
 
+  def graph_with_data(svg_canvas)
+    viewbox = [
+      @data.x_min,
+      @data.y_min,
+      @data.width,
+      @data.height
+    ].join(" ")
+
+    x_axis(svg_canvas)
+    y_axis(svg_canvas)
 
     svg_canvas.svg viewBox: viewbox,
                    preserveAspectRatio: :none,
@@ -79,29 +88,5 @@ class SvgBuilder
                           stroke: :black,
                           stroke_width: "1em"
     end
-  end
-
-  def x_min
-    0
-  end
-
-  def y_min
-    @data.map(&:second).min
-  end
-
-  def x_max
-    @data.map(&:first).map(&:to_i).max
-  end
-
-  def y_max
-    @data.map(&:second).max
-  end
-
-  def width
-    x_max - x_min
-  end
-
-  def height
-    y_max - y_min
   end
 end
