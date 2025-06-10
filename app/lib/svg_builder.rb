@@ -1,14 +1,7 @@
-class SvgBuilder < Array
+class SvgBuilder
   def initialize(data)
-    @data = data.dup.map do |datum|
-      [ datum.first.to_i, datum.second * 100 ]
-    end
-
-    @min_x = @data.map(&:first).min
-
-    @data = @data.map do |point|
-      [ point.first - @min_x, point.second ]
-    end
+    @data = SvgPoints.new(data)
+    @min_x = data.map(&:first).min.to_i
   end
 
   def render_from_csv
@@ -17,6 +10,7 @@ class SvgBuilder < Array
                                  height: '100%',
                                  width: '100%'
                                  # /style: {width: "640", height: "480"}
+
     if @data.empty?
       empty_graph(svg_canvas)
     else
