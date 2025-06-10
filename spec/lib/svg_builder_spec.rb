@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe SvgBuilder do
-
   def assert_x_tick_mark(index)
     expect(x_ticks[index]['x1']).to eq(((index ) * 100).to_s)
     expect(x_ticks[index]['x2']).to eq(((index ) * 100).to_s)
@@ -26,12 +25,6 @@ RSpec.describe SvgBuilder do
       [ DateTime.parse("2025-02-14T04:01+07:00"), 308 ],
       [ DateTime.parse("2025-02-14T04:06+07:00"), 299 ]
     ]
-  end
-
-  describe "#points" do
-    it "generatest the correct path" do
-      expect(subject.points).to eq("0,30800 300,30800 600,29900")
-    end
   end
 
   describe "#render_from_csv" do

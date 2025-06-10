@@ -1,7 +1,6 @@
 class SvgBuilder
   def initialize(data)
     @data = SvgPoints.new(data)
-    @min_x = data.map(&:first).min.to_i
   end
 
   def render_from_csv
@@ -9,7 +8,6 @@ class SvgBuilder
                                 preserveAspectRatio: :none,
                                  height: '100%',
                                  width: '100%'
-                                 # /style: {width: "640", height: "480"}
 
     if @data.empty?
       empty_graph(svg_canvas)
@@ -18,11 +16,6 @@ class SvgBuilder
     end
 
     svg_canvas.render
-  end
-
-  def points
-    point_strings = @data.map { |p| point_string(p) }
-    point_strings.join(" ")
   end
 
   private
@@ -69,7 +62,7 @@ class SvgBuilder
     end
 
     (0..10).each do |index|
-      label =Time.at( ((x_max-x_min)*index/10.0 + x_min + @min_x ))
+      label =Time.at( ((x_max-x_min)*index/10.0 + x_min + @data.min_x ))
       svg_canvas.text label.strftime('%m/%d'),
                       x: 100*(index) - 17,
                       y: 485,
@@ -81,7 +74,7 @@ class SvgBuilder
                    preserveAspectRatio: :none,
                    width: "100%",
                    height: "50%" do
-      svg_canvas.polyline points:,
+      svg_canvas.polyline points: @data.points,
                           fill: :none,
                           stroke: :black,
                           stroke_width: "1em"
@@ -110,9 +103,5 @@ class SvgBuilder
 
   def height
     y_max - y_min
-  end
-
-  def point_string(point)
-    "#{point.first.to_i},#{point.second}"
   end
 end
