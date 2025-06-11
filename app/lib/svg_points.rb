@@ -52,6 +52,6 @@ class SvgPoints
   private
 
   def point_string(point)
-    "#{point.first.to_i},#{point.second}"
+    "#{point.first.to_i},#{y_max - point.second}"
   end
 end
