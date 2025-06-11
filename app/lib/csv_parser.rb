@@ -20,10 +20,6 @@ class CsvParser
       end
   end
 
-  def existing_measurement_times
-    @existing_measurement_times ||= GlucoseMeasurement.pluck(:measured_at)
-  end
-
   def new_measurements
     parse.map do |measurement|
       GlucoseMeasurement.new(
