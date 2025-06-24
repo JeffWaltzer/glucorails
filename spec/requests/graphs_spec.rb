@@ -32,7 +32,7 @@ RSpec.describe "Graphs", type: :request do
       let(:polyline) { xml.at_xpath('//svg/svg/polyline').attributes }
 
       it 'has a polyline d' do
-        expect(polyline['points'].value).to eq "0,200 300,0 600,300"
+        expect(polyline['points'].value).to eq "0,2 300,0 600,3"
       end
     end
   end

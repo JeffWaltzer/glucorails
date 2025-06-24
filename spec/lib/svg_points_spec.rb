@@ -16,9 +16,9 @@ RSpec.describe SvgPoints do
 
   it "@data has the right value" do
     expected_value = [
-      [ 0, 30800 ],
-      [ 300, 30800 ],
-      [ 600, 29900 ]
+      [   0, 308 ],
+      [ 300, 308 ],
+      [ 600, 299 ]
     ]
 
     expect(points.instance_variable_get(:@data)).to eq(expected_value)
@@ -42,7 +42,7 @@ RSpec.describe SvgPoints do
 
   describe "#points" do
     it "generatest the correct path" do
-      expect(subject.points).to eq("0,0 300,0 600,900")
+      expect(subject.points).to eq("0,0 300,0 600,9")
     end
   end
 
@@ -51,7 +51,7 @@ RSpec.describe SvgPoints do
   end
 
   it "#y_min returns the correct value" do
-    expect(points.y_min).to eq(29900)
+    expect(points.y_min).to eq(299)
   end
 
   it "#x_max returns the correct value" do
@@ -59,7 +59,7 @@ RSpec.describe SvgPoints do
   end
 
   it "#y_max returns the correct value" do
-    expect(points.y_max).to eq(30800)
+    expect(points.y_max).to eq(308)
   end
 
   it "width returns the correct value" do
@@ -67,10 +67,10 @@ RSpec.describe SvgPoints do
   end
 
   it "height returns the correct value" do
-    expect(points.height).to eq(900)
+    expect(points.height).to eq(9)
   end
 
   it "viewbox returns the correct value" do
-    expect(points.viewbox).to eq("0 29900 600 900")
+    expect(points.viewbox).to eq("0 299 600 9")
   end
 end

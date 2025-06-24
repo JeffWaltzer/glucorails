@@ -3,7 +3,7 @@ class SvgPoints
 
   def initialize(raw_data)
     @data = raw_data.dup.map do |datum|
-      [ datum.first.to_i, datum.second * 100 ]
+      [ datum.first.to_i, datum.second ]
     end
 
     @min_x = raw_data.map(&:first).min.to_i
