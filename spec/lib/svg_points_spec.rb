@@ -71,6 +71,6 @@ RSpec.describe SvgPoints do
   end
 
   it "viewbox returns the correct value" do
-    expect(points.viewbox).to eq("0 299 600 9")
+    expect(points.viewbox).to eq("0 0 600 9")
   end
 end

@@ -46,7 +46,7 @@ class SvgPoints
   end
 
   def viewbox
-    [ x_min, y_min, width, height ].join(" ")
+    [ x_min, 0, width, height ].join(" ")
   end
 
   private

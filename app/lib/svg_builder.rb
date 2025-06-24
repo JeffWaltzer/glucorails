@@ -7,7 +7,7 @@ class SvgBuilder
     @data = SvgPoints.new(data)
     @svg_canvas = Victor::SVG.new viewBox: [ 0, 0, 1000, 1000 ],
                                  preserveAspectRatio: :none,
-                                 height: "90%",
+                                 height: "95%",
                                  width: "100%"
  end
 
