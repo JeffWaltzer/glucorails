@@ -38,13 +38,13 @@ class SvgBuilder
       @svg_canvas.line class: "x-tick",
                       x1: 100*(index),
                       x2: 100*(index),
-                      y1: 500,
-                      y2: 490,
+                      y1: 1000,
+                      y2: 990,
                       stroke: TIC_COLOR
 
       @svg_canvas.text x_tick_label(index),
                       x: 100*(index) - 17,
-                      y: 485,
+                      y: 985,
                       style: "fill: #{TEXT_COLOR}",
                       class: "x-tick-label"
   end
@@ -57,8 +57,8 @@ class SvgBuilder
     @svg_canvas.line id: "x-axis",
                      x1: 0,
                      x2: 1000,
-                     y1: 500,
-                     y2: 500,
+                     y1: 999,
+                     y2: 999,
                      stroke: STROKE_COLOR
     draw_x_axis_ticks
   end
@@ -102,14 +102,14 @@ class SvgBuilder
     @svg_canvas.polyline points: @data.points,
                          fill: :none,
                          stroke: STROKE_COLOR,
-                         stroke_width: "4em"
+                         stroke_width: "20px"
   end
 
   def draw_data
     @svg_canvas.svg viewBox: @data.viewbox,
                    preserveAspectRatio: :none,
                    width: "100%",
-                   height: "50%" do
+                   height: "100%" do
       draw_points_line
     end
   end
