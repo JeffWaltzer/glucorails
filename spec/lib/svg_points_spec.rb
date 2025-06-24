@@ -42,7 +42,7 @@ RSpec.describe SvgPoints do
 
   describe "#points" do
     it "generatest the correct path" do
-      expect(subject.points).to eq("0,30800 300,30800 600,29900")
+      expect(subject.points).to eq("0,0 300,0 600,900")
     end
   end
 

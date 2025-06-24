@@ -6,15 +6,15 @@ RSpec.describe SvgBuilder do
   def assert_x_tick_mark(index)
     expect(x_ticks[index]['x1']).to eq(((index ) * 100).to_s)
     expect(x_ticks[index]['x2']).to eq(((index ) * 100).to_s)
-    expect(x_ticks[index]['y1']).to eq '500'
-    expect(x_ticks[index]['y2']).to eq '490'
+    expect(x_ticks[index]['y1']).to eq '1000'
+    expect(x_ticks[index]['y2']).to eq '990'
   end
 
   def assert_y_tick_mark(index)
     expect(y_ticks[index]['x1']).to eq '0'
     expect(y_ticks[index]['x2']).to eq '10'
-    expect(y_ticks[index]['y1']).to eq ((index)* 50).to_s
-    expect(y_ticks[index]['y2']).to eq ((index)* 50).to_s
+    expect(y_ticks[index]['y1']).to eq ((index)* 100).to_s
+    expect(y_ticks[index]['y2']).to eq ((index)* 100).to_s
   end
 
   subject(:svg_builder) { described_class.new(data) }
@@ -67,14 +67,14 @@ RSpec.describe SvgBuilder do
     it 'has x-axis' do
       expect(x_line['x1'].value).to eq '0'
       expect(x_line['x2'].value).to eq '1000'
-      expect(x_line['y1'].value).to eq '500'
-      expect(x_line['y2'].value).to eq '500'
+      expect(x_line['y1'].value).to eq '999'
+      expect(x_line['y2'].value).to eq '999'
     end
 
     it 'has correct first y tick label' do
       expect(y_tick_text[0]).to eq "299"
       expect(y_tick_labels[0]['x']).to eq('12')
-      expect(y_tick_labels[0]['y']).to eq('505')
+      expect(y_tick_labels[0]['y']).to eq('1005')
     end
 
     it 'has correct last y tick label' do
@@ -86,13 +86,13 @@ RSpec.describe SvgBuilder do
     it 'has correct first x tick label' do
       expect(x_tick_text[0]).to eq "02/13"
       expect(x_tick_labels[0]['x']).to eq('-17')
-      expect(x_tick_labels[0]['y']).to eq('485')
+      expect(x_tick_labels[0]['y']).to eq('985')
     end
 
     it 'has correct last x tick label' do
       expect(x_tick_text[10]).to eq "02/13"
       expect(x_tick_labels[10]['x']).to eq('983')
-      expect(x_tick_labels[10]['y']).to eq('485')
+      expect(x_tick_labels[10]['y']).to eq('985')
     end
 
 
@@ -101,7 +101,7 @@ RSpec.describe SvgBuilder do
       expect(y_line['x1'].value).to eq '1'
       expect(y_line['x2'].value).to eq '1'
       expect(y_line['y1'].value).to eq '0'
-      expect(y_line['y2'].value).to eq '500'
+      expect(y_line['y2'].value).to eq '1000'
     end
 
     it "has correct 1st x tick" do
@@ -139,7 +139,7 @@ RSpec.describe SvgBuilder do
     end
 
     it 'has an svg height' do
-      expect(svg['height'].value).to eq "100%"
+      expect(svg['height'].value).to eq "90%"
     end
 
     it 'has correct viewBox coordinates' do
@@ -147,15 +147,15 @@ RSpec.describe SvgBuilder do
     end
 
     it 'has a polyline with correct stroke coordinates' do
-      expect(polyline['points'].value).to eq "0,30800 300,30800 600,29900"
+      expect(polyline['points'].value).to eq "0,0 300,0 600,900"
     end
 
     it 'has a polyline with correct stroke color' do
-      expect(polyline['stroke'].value).to eq 'black'
+      expect(polyline['stroke'].value).to eq 'white'
     end
 
     it 'has a polyline with correct stroke width' do
-      expect(polyline['stroke-width'].value).to eq '1em'
+      expect(polyline['stroke-width'].value).to eq '20px'
     end
   end
 end
