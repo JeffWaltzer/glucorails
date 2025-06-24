@@ -69,7 +69,7 @@ class SvgBuilder
 
     @svg_canvas.text glucose_value,
                      x: 12,
-                     y: 50*(10-index)+5,
+                     y: 100*(10-index)+5,
                      style: "fill: #{TEXT_COLOR}",
                      class: "y-tick-label"
   end
@@ -78,8 +78,8 @@ class SvgBuilder
     @svg_canvas.line class: "y-tick",
                      x1: 0,
                      x2: 10,
-                     y1: 50*(index),
-                     y2: 50*(index),
+                     y1: 100*(index),
+                     y2: 100*(index),
                      stroke: TIC_COLOR
     y_tick_label(index)
   end
@@ -93,7 +93,7 @@ class SvgBuilder
                      x1: 1,
                      x2: 1,
                      y1: 0,
-                     y2: 500,
+                     y2: 1000,
                      stroke: STROKE_COLOR
     draw_y_axis_ticks
   end
