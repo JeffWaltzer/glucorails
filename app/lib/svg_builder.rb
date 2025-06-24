@@ -1,9 +1,13 @@
 class SvgBuilder
+  STROKE_COLOR = :white
+  TIC_COLOR = :white
+  TEXT_COLOR = :white
+
   def initialize(data)
     @data = SvgPoints.new(data)
     @svg_canvas = Victor::SVG.new viewBox: [ 0, 0, 1000, 1000 ],
                                  preserveAspectRatio: :none,
-                                 height: "100%",
+                                 height: "90%",
                                  width: "100%"
  end
 
@@ -36,11 +40,12 @@ class SvgBuilder
                       x2: 100*(index),
                       y1: 500,
                       y2: 490,
-                      stroke: :black
+                      stroke: TIC_COLOR
 
       @svg_canvas.text x_tick_label(index),
                       x: 100*(index) - 17,
                       y: 485,
+                      style: "fill: #{TEXT_COLOR}",
                       class: "x-tick-label"
   end
 
@@ -54,7 +59,7 @@ class SvgBuilder
                      x2: 1000,
                      y1: 500,
                      y2: 500,
-                     stroke: :black
+                     stroke: STROKE_COLOR
     draw_x_axis_ticks
   end
 
@@ -65,6 +70,7 @@ class SvgBuilder
     @svg_canvas.text glucose_value,
                      x: 12,
                      y: 50*(10-index)+5,
+                     style: "fill: #{TEXT_COLOR}",
                      class: "y-tick-label"
   end
 
@@ -74,7 +80,7 @@ class SvgBuilder
                      x2: 10,
                      y1: 50*(index),
                      y2: 50*(index),
-                     stroke: :black
+                     stroke: TIC_COLOR
     y_tick_label(index)
   end
 
@@ -88,15 +94,15 @@ class SvgBuilder
                      x2: 1,
                      y1: 0,
                      y2: 500,
-                     stroke: :black
+                     stroke: STROKE_COLOR
     draw_y_axis_ticks
   end
 
   def draw_points_line
     @svg_canvas.polyline points: @data.points,
                          fill: :none,
-                         stroke: :black,
-                         stroke_width: "1em"
+                         stroke: STROKE_COLOR,
+                         stroke_width: "4em"
   end
 
   def draw_data
