@@ -1,3 +1,8 @@
 <%= link_to "Upload CSV", new_csv_upload_path %>
 
+<%= form_tag(graph_path, method: :get) do |form| %>
+  <%= select_date %>
+  <%= submit_tag %>
+<% end %>
+
 <%= @graph %>
