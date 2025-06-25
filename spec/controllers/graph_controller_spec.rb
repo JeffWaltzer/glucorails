@@ -27,12 +27,12 @@ RSpec.describe GraphController, type: :controller do
     describe "with a date parameter" do
       it "calls points_for with the date" do
         get :show, params: {
-              "date[year]": expected_year,
-              "date[month]": expected_month,
-              "date[day]": expected_day,
+              date: {
+                year: expected_year,
+                month: expected_month,
+                day: expected_day,
+              }
             }
-
-        # http://localhost:3000/graph?date%5Byear%5D=2025&date%5Bmonth%5D=3&date%5Bday%5D=28&commit=Save+changes
 
         expect(GlucoseMeasurement).to have_received(:points_for).with(date: expected_date)
       end
