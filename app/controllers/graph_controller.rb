@@ -1,6 +1,6 @@
 class GraphController < ApplicationController
   def show
-    start_time = params[:start_time]
+    start_time = params_permit[:start_time]
     if start_time
       @start_time = DateTime.new(start_time[:year].to_i,
                           start_time[:month].to_i,
@@ -17,6 +17,6 @@ class GraphController < ApplicationController
   end
 
   def params_permit
-    params.permit(:date)
+    params.permit(start_time: {})
   end
 end
