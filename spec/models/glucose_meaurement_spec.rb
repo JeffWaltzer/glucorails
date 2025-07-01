@@ -39,5 +39,14 @@ RSpec.describe GlucoseMeasurement do
       ))
         .to eq([[DateTime.parse('2025-05-02T03:56'), 101]])
     end
+
+    it 'tells us the first measurement' do
+      expect(GlucoseMeasurement.earliest_date).to eq DateTime.parse('2025-05-01T03:56')
+    end
+
+    it 'tells us the first measurement' do
+      expect(GlucoseMeasurement.latest_date).to eq DateTime.parse('2025-05-04T03:56')
+    end
+
   end
 end

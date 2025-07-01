@@ -3,6 +3,7 @@
 
 <%= form_tag(graph_path, method: :get) do |form| %>
   <%= select_date @start_time, prefix: 'start_time'%>
+  <%= select_date @end_time, prefix: 'end_time'%>
   <%= submit_tag "Apply" %>
 <% end %>
 
