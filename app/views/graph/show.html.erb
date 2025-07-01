@@ -2,7 +2,7 @@
 <%= button_to "All data", graph_path, method: :get %>
 
 <%= form_tag(graph_path, method: :get) do |form| %>
-  <%= select_date %>
+  <%= select_date @start_time, prefix: 'start_time'%>
   <%= submit_tag "Apply" %>
 <% end %>
 

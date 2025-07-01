@@ -1,8 +1,8 @@
 class GlucoseMeasurement < ApplicationRecord
-  def self.points_for(date: nil)
-    measurements = date.nil? ?
+  def self.points_for(start_time: nil)
+    measurements = start_time.nil? ?
       GlucoseMeasurement.all :
-      GlucoseMeasurement.where(measured_at: date.all_day)
+      GlucoseMeasurement.where(measured_at: start_time..)
 
     measurements.to_a.map do |measurement|
       [measurement.measured_at, measurement.glucose]

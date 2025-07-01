@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe GraphController, type: :controller do
   describe "#show" do
-    let(:expected_date) { DateTime.now }
-    let(:expected_year) { expected_date.year }
-    let(:expected_month) { expected_date.month }
-    let(:expected_day) { expected_date.day }
+    let(:expected_start_time) { DateTime.now }
+    let(:expected_start_year) { expected_start_time.year }
+    let(:expected_start_month) { expected_start_time.month }
+    let(:expected_start_day) { expected_start_time.day }
 
     before do
       GlucoseMeasurement.create!(
-        measured_at: expected_date,
+        measured_at: expected_start_time,
         glucose: 100,
         )
 
@@ -20,21 +20,23 @@ RSpec.describe GraphController, type: :controller do
       it 'calls #points_for with date: nil' do
         get :show
 
-        expect(GlucoseMeasurement).to have_received(:points_for).with(date: nil)
+        expect(GlucoseMeasurement).to have_received(:points_for).with(start_time: nil)
       end
     end
 
     describe "with a date parameter" do
       it "calls points_for with the date" do
         get :show, params: {
-              date: {
-                year: expected_year,
-                month: expected_month,
-                day: expected_day,
+          
+          start_time: {
+                year: expected_start_year,
+                month: expected_start_month,
+                day: expected_start_day,
               }
             }
 
-        expect(GlucoseMeasurement).to have_received(:points_for).with(date: expected_date)
+        expect(GlucoseMeasurement).to have_received(:points_for).
+          with(start_time: expected_start_time)
       end
     end
   end

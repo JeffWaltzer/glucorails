@@ -1,6 +1,6 @@
 RSpec.describe GlucoseMeasurement do
   it 'returns nothing if no data' do
-    expect(GlucoseMeasurement.points_for(date: DateTime.new(2025,5,1,0,0,0))).to eq([])
+    expect(GlucoseMeasurement.points_for(start_time: DateTime.new(2025,5,1,0,0,0))).to eq([])
   end
 
   describe 'with data' do
@@ -12,10 +12,12 @@ RSpec.describe GlucoseMeasurement do
     end
 
     it "Returns data for date" do
-      expect(GlucoseMeasurement.points_for(date: DateTime.new(2025,5,2,0,0,0)))
+      expect(GlucoseMeasurement.points_for(start_time: DateTime.new(2025,5,2,0,0,0)))
         .to eq(
               [
-                [DateTime.parse('2025-05-02T03:56'), 101]
+                [DateTime.parse('2025-05-02T03:56'), 101],
+                [DateTime.parse('2025-05-03T03:56'), 102],
+                [DateTime.parse('2025-05-04T03:56'), 103]
               ]
             )
     end
