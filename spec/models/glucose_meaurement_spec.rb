@@ -21,5 +21,15 @@ RSpec.describe GlucoseMeasurement do
               ]
             )
     end
+
+    it "Returns data for date" do
+      expect(GlucoseMeasurement.points_for(end_time: DateTime.new(2025,5,2,0,0,0)))
+        .to eq(
+              [
+                [DateTime.parse('2025-05-01T03:56'), 100],
+                [DateTime.parse('2025-05-02T03:56'), 101],
+              ]
+            )
+    end
   end
 end
