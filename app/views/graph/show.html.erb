@@ -1,12 +1,21 @@
-<%= link_to "Upload CSV", new_csv_upload_path %>
-<%= button_to "All data", graph_path, method: :get %>
+<div style="display: flex; flex-direction: row; flex-wrap: wrap">
+  <%= button_to "Upload CSV", new_csv_upload_path %>
+  &nbsp;
+ <%= button_to "All data", graph_path, method: :get %>
 
-<%= form_tag(graph_path, method: :get) do |form| %>
-  <%= select_date @start_time, prefix: 'start_time'%>
-  <br/>
-  <%= select_date @end_time, prefix: 'end_time'%>
-  <br/>
+  <%= form_tag(graph_path, method: :get) do |form| %>
+  &nbsp;
+  <span>
+    Start Time:
+    <%= select_date @start_time, prefix: 'start_time'%>
+  </span>
+  &nbsp;
+  <span>
+    End Time:
+    <%= select_date @end_time, prefix: 'end_time'%>
+  </span>
   <%= submit_tag "Apply" %>
-<% end %>
+  <% end %>
 
-<%= @graph %>
+  <%= @graph %>
+</div>
