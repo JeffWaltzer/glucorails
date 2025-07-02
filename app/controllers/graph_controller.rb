@@ -9,7 +9,7 @@ class GraphController < ApplicationController
                           0,
                           0)
     else
-      @start_time = nil
+      @start_time = GlucoseMeasurement.earliest_date
     end
 
     end_time = params_permit[:end_time]
@@ -21,7 +21,7 @@ class GraphController < ApplicationController
                                  0,
                                  0)
     else
-      @end_time = nil
+      @end_time = GlucoseMeasurement.latest_date
     end
 
 
