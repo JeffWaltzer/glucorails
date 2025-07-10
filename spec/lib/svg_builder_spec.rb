@@ -3,18 +3,36 @@
 require 'rails_helper'
 
 RSpec.describe SvgBuilder do
-  def assert_x_tick_mark(index)
+  def has_x_tick_mark(index)
     expect(x_ticks[index]['x1']).to eq(((index ) * 100).to_s)
     expect(x_ticks[index]['x2']).to eq(((index ) * 100).to_s)
     expect(x_ticks[index]['y1']).to eq '1000'
     expect(x_ticks[index]['y2']).to eq '990'
   end
 
-  def assert_y_tick_mark(index)
+  def has_y_tick_mark(index)
     expect(y_ticks[index]['x1']).to eq '0'
     expect(y_ticks[index]['x2']).to eq '10'
     expect(y_ticks[index]['y1']).to eq ((index)* 100).to_s
     expect(y_ticks[index]['y2']).to eq ((index)* 100).to_s
+  end
+
+  def has_correct_x_tick_date_label(index, expected_text:, expected_x_position:)
+    expect(x_tick_date_text[index]).to eq(expected_text)
+    expect(x_tick_date_labels[index]['x']).to eq(expected_x_position)
+    expect(x_tick_date_labels[index]['y']).to eq('965')
+  end
+
+  def has_correct_x_tick_time_label(index, expected_text:, expected_x_position:)
+    expect(x_tick_time_text[index]).to eq(expected_text)
+    expect(x_tick_time_labels[index]['x']).to eq(expected_x_position)
+    expect(x_tick_time_labels[index]['y']).to eq('985')
+  end
+
+  def has_correct_y_tick_label(index, expected_text:, expected_y_position:)
+    expect(y_tick_text[index]).to eq expected_text
+    expect(y_tick_labels[index]['x']).to eq('12')
+    expect(y_tick_labels[index]['y']).to eq(expected_y_position)
   end
 
   subject(:svg_builder) { described_class.new(data) }
@@ -90,40 +108,40 @@ RSpec.describe SvgBuilder do
         expect(x_line['y2'].value).to eq '999'
       end
 
-      it 'has correct first y tick label' do
-        expect(y_tick_text[0]).to eq "299"
-        expect(y_tick_labels[0]['x']).to eq('12')
-        expect(y_tick_labels[0]['y']).to eq('1005')
+      it "has the correct y[0] tic label" do
+        has_correct_y_tick_label 0, expected_text: "299", expected_y_position: "1005"
       end
 
-      it 'has correct last y tick label' do
-        expect(y_tick_text[10]).to eq "308"
-        expect(y_tick_labels[10]['x']).to eq('12')
-        expect(y_tick_labels[10]['y']).to eq('5')
+      it "has the correct y[5] tic label" do
+        has_correct_y_tick_label 5, expected_text: "304", expected_y_position: "505"
       end
 
-      it 'has correct first x tick date label' do
-        expect(x_tick_date_text[0]).to eq "02/14"
-        expect(x_tick_date_labels[0]['x']).to eq('-17')
-        expect(x_tick_date_labels[0]['y']).to eq('965')
+      it 'has the correct y[10] tic label' do
+        has_correct_y_tick_label 10, expected_text: "308", expected_y_position: "5"
       end
 
-      it 'has correct first x tick time label' do
-        expect(x_tick_time_text[0]).to eq "3:56 am"
-        expect(x_tick_time_labels[0]['x']).to eq('-17')
-        expect(x_tick_time_labels[0]['y']).to eq('985')
+      it 'has the correct x[0] date label' do
+        has_correct_x_tick_date_label 0, expected_text: "02/14", expected_x_position: "-17"
       end
 
-      it 'has correct last x tick date label' do
-        expect(x_tick_date_text[10]).to eq "02/14"
-        expect(x_tick_date_labels[10]['x']).to eq('983')
-        expect(x_tick_date_labels[10]['y']).to eq('965')
+      it 'has the correct x[0] tick time label' do
+        has_correct_x_tick_time_label(0, expected_text: "3:56 am", expected_x_position: "-17")
       end
 
-      it 'has correct last x tick time label' do
-        expect(x_tick_time_text[10]).to eq "4:06 am"
-        expect(x_tick_time_labels[10]['x']).to eq('983')
-        expect(x_tick_time_labels[10]['y']).to eq('985')
+      it 'has the correct x[5] date label' do
+        has_correct_x_tick_date_label 5, expected_text: "02/14", expected_x_position: "483"
+      end
+
+      it 'has the correct x[5] tick time label' do
+        has_correct_x_tick_time_label(5, expected_text: "4:01 am", expected_x_position: "483")
+      end
+
+      it 'has the correct x[10] tick date label' do
+        has_correct_x_tick_date_label 10, expected_text: "02/14", expected_x_position: "983"
+      end
+
+      it 'has the correct x[10] tick time label' do
+        has_correct_x_tick_time_label(10, expected_text: "4:06 am", expected_x_position: "983")
       end
 
       it 'has y-axis' do
@@ -134,33 +152,33 @@ RSpec.describe SvgBuilder do
       end
 
       it "has correct 1st x tick" do
-        assert_x_tick_mark(0)
+        has_x_tick_mark(0)
       end
 
       it "has correct 5th x tick" do
-        assert_x_tick_mark(4)
+        has_x_tick_mark(4)
       end
 
       it "has correct 8th x tick" do
-        assert_x_tick_mark(7)
+        has_x_tick_mark(7)
       end
 
       it "has correct 9th x tick" do
-        assert_x_tick_mark(9)
+        has_x_tick_mark(9)
       end
 
       it "has correct 10th x tick" do
-        assert_x_tick_mark(10)
+        has_x_tick_mark(10)
       end
 
       it "has correct 1st y tick" do
-        assert_y_tick_mark(0)
+        has_y_tick_mark(0)
       end
       it "has correct 5th y tick" do
-        assert_y_tick_mark(4)
+        has_y_tick_mark(4)
       end
       it "has correct 10th y tick" do
-        assert_y_tick_mark(9)
+        has_y_tick_mark(9)
       end
 
       it 'has a polyline with correct stroke coordinates' do
@@ -174,9 +192,6 @@ RSpec.describe SvgBuilder do
       it 'has a polyline with correct stroke width' do
         expect(polyline['stroke-width'].value).to eq '20px'
       end
-    end
-
-    describe "" do
     end
   end
 end
