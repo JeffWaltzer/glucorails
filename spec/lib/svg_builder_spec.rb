@@ -75,9 +75,9 @@ RSpec.describe SvgBuilder do
     describe "with the default data" do
       let(:data) do
         [
-          [ DateTime.parse("2025-02-14T03:56+07:00"), 308 ],
-          [ DateTime.parse("2025-02-14T04:01+07:00"), 308 ],
-          [ DateTime.parse("2025-02-14T04:06+07:00"), 299 ]
+          [ DateTime.parse("2025-02-14T03:56-500"), 308 ],
+          [ DateTime.parse("2025-02-14T04:01-500"), 308 ],
+          [ DateTime.parse("2025-02-14T04:06-500"), 299 ]
         ]
       end
 
@@ -101,18 +101,16 @@ RSpec.describe SvgBuilder do
       end
 
       it 'has correct first x tick label' do
-        expect(x_tick_text[0]).to eq "02/13"
+        expect(x_tick_text[0]).to eq "02/14  3:56 am"
         expect(x_tick_labels[0]['x']).to eq('-17')
         expect(x_tick_labels[0]['y']).to eq('985')
       end
 
       it 'has correct last x tick label' do
-        expect(x_tick_text[10]).to eq "02/13"
+        expect(x_tick_text[10]).to eq "02/14  4:06 am"
         expect(x_tick_labels[10]['x']).to eq('983')
         expect(x_tick_labels[10]['y']).to eq('985')
       end
-
-
 
       it 'has y-axis' do
         expect(y_line['x1'].value).to eq '1'

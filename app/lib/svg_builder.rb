@@ -31,7 +31,7 @@ class SvgBuilder
     tick_time = (@data.x_max - @data.x_min) * index/10.0 +
                 @data.x_min + @data.min_x
 
-    Time.at(tick_time).strftime("%m/%d")
+    Time.at(tick_time).strftime("%m/%d %l:%M %P")
   end
 
   def draw_x_axis_tick(index)
