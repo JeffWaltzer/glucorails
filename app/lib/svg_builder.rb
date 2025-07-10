@@ -27,11 +27,18 @@ class SvgBuilder
     @svg_canvas.text "No data"
   end
 
-  def x_tick_label(index)
+  def x_tick_date_label(index)
     tick_time = (@data.x_max - @data.x_min) * index/10.0 +
                 @data.x_min + @data.min_x
 
-    Time.at(tick_time).strftime("%m/%d %l:%M %P")
+    Time.at(tick_time).strftime("%m/%d")
+  end
+
+  def x_tick_time_label(index)
+    tick_time = (@data.x_max - @data.x_min) * index/10.0 +
+                @data.x_min + @data.min_x
+
+    Time.at(tick_time).strftime("%l:%M %P")
   end
 
   def draw_x_axis_tick(index)
@@ -42,11 +49,17 @@ class SvgBuilder
                       y2: 990,
                       stroke: TIC_COLOR
 
-      @svg_canvas.text x_tick_label(index),
+      @svg_canvas.text x_tick_date_label(index),
+                      x: 100*(index) - 17,
+                      y: 965,
+                      style: "fill: #{TEXT_COLOR}",
+                      class: "x-tick-date-label"
+
+      @svg_canvas.text x_tick_time_label(index),
                       x: 100*(index) - 17,
                       y: 985,
                       style: "fill: #{TEXT_COLOR}",
-                      class: "x-tick-label"
+                      class: "x-tick-time-label"
   end
 
   def draw_x_axis_ticks

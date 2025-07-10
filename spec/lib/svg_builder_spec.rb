@@ -45,8 +45,10 @@ RSpec.describe SvgBuilder do
     let(:y_tick_labels) {xml.css('.y-tick-label')}
     let(:y_tick_text) {y_tick_labels.map(&:text).map(&:strip)}
 
-    let(:x_tick_labels) {xml.css('.x-tick-label')}
-    let(:x_tick_text) {x_tick_labels.map(&:text).map(&:strip)}
+    let(:x_tick_date_labels) {xml.css('.x-tick-date-label')}
+    let(:x_tick_time_labels) {xml.css('.x-tick-time-label')}
+    let(:x_tick_date_text) {x_tick_date_labels.map(&:text).map(&:strip)}
+    let(:x_tick_time_text) {x_tick_time_labels.map(&:text).map(&:strip)}
 
     describe "when there is no data" do
       let(:data) { [] }
@@ -100,16 +102,28 @@ RSpec.describe SvgBuilder do
         expect(y_tick_labels[10]['y']).to eq('5')
       end
 
-      it 'has correct first x tick label' do
-        expect(x_tick_text[0]).to eq "02/14  3:56 am"
-        expect(x_tick_labels[0]['x']).to eq('-17')
-        expect(x_tick_labels[0]['y']).to eq('985')
+      it 'has correct first x tick date label' do
+        expect(x_tick_date_text[0]).to eq "02/14"
+        expect(x_tick_date_labels[0]['x']).to eq('-17')
+        expect(x_tick_date_labels[0]['y']).to eq('965')
       end
 
-      it 'has correct last x tick label' do
-        expect(x_tick_text[10]).to eq "02/14  4:06 am"
-        expect(x_tick_labels[10]['x']).to eq('983')
-        expect(x_tick_labels[10]['y']).to eq('985')
+      it 'has correct first x tick time label' do
+        expect(x_tick_time_text[0]).to eq "3:56 am"
+        expect(x_tick_time_labels[0]['x']).to eq('-17')
+        expect(x_tick_time_labels[0]['y']).to eq('985')
+      end
+
+      it 'has correct last x tick date label' do
+        expect(x_tick_date_text[10]).to eq "02/14"
+        expect(x_tick_date_labels[10]['x']).to eq('983')
+        expect(x_tick_date_labels[10]['y']).to eq('965')
+      end
+
+      it 'has correct last x tick time label' do
+        expect(x_tick_time_text[10]).to eq "4:06 am"
+        expect(x_tick_time_labels[10]['x']).to eq('983')
+        expect(x_tick_time_labels[10]['y']).to eq('985')
       end
 
       it 'has y-axis' do
