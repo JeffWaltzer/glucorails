@@ -193,5 +193,51 @@ RSpec.describe SvgBuilder do
         expect(polyline['stroke-width'].value).to eq '20px'
       end
     end
+
+    describe "with the default data" do
+      let(:data) do
+        [
+          [ DateTime.parse("2025-02-14T03:56-500"), 99 ],
+          [ DateTime.parse("2025-02-15T04:01-500"), 86 ],
+          [ DateTime.parse("2025-02-16T04:06-500"),  3 ]
+        ]
+      end
+
+      it "has the correct y[0] tic label" do
+        has_correct_y_tick_label 0, expected_text: "3", expected_y_position: "1005"
+      end
+
+      it "has the correct y[5] tic label" do
+        has_correct_y_tick_label 5, expected_text: "51", expected_y_position: "505"
+      end
+
+      it 'has the correct y[10] tic label' do
+        has_correct_y_tick_label 10, expected_text: "99", expected_y_position: "5"
+      end
+
+      it 'has the correct x[0] date label' do
+        has_correct_x_tick_date_label 0, expected_text: "02/14", expected_x_position: "-17"
+      end
+
+      it 'has the correct x[0] tick time label' do
+        has_correct_x_tick_time_label(0, expected_text: "3:56 am", expected_x_position: "-17")
+      end
+
+      it 'has the correct x[5] date label' do
+        has_correct_x_tick_date_label 5, expected_text: "02/15", expected_x_position: "483"
+      end
+
+      it 'has the correct x[5] tick time label' do
+        has_correct_x_tick_time_label(5, expected_text: "4:01 am", expected_x_position: "483")
+      end
+
+      it 'has the correct x[10] tick date label' do
+        has_correct_x_tick_date_label 10, expected_text: "02/16", expected_x_position: "983"
+      end
+
+      it 'has the correct x[10] tick time label' do
+        has_correct_x_tick_time_label(10, expected_text: "4:06 am", expected_x_position: "983")
+      end
+    end
   end
 end
