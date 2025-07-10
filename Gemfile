@@ -42,8 +42,11 @@ gem "thruster", require: false
 
 gem "csv"
 gem "victor"  # SVG DSL
-gem 'simplecov', require: false, group: :test
 
+group :test do
+  gem "simplecov", require: false
+  gem "undercover"
+end
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

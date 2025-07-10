@@ -16,7 +16,20 @@
 
 # Must be before everything else.
 require 'simplecov'
-SimpleCov.start 'rails'
+require 'undercover/simplecov_formatter'
+
+# optional, will default to coverage.json
+SimpleCov::Formatter::Undercover.output_filename = 'my_project_coverage.json'
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+  [
+    SimpleCov::Formatter::Undercover,
+    SimpleCov::Formatter::HTMLFormatter
+  ])
+
+SimpleCov.start "rails" do
+  add_filter(/^\/spec\//) # For RSpec
+  enable_coverage(:branch) # Report branch coverage to trigger branch-level undercover warnings
+end
 
 RSpec.configure do |config|
   # Previous content of test helper now starts hereRSpec.configure do |config|
