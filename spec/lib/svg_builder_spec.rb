@@ -19,14 +19,6 @@ RSpec.describe SvgBuilder do
 
   subject(:svg_builder) { described_class.new(data) }
 
-  let(:data) do
-    [
-      [ DateTime.parse("2025-02-14T03:56+07:00"), 308 ],
-      [ DateTime.parse("2025-02-14T04:01+07:00"), 308 ],
-      [ DateTime.parse("2025-02-14T04:06+07:00"), 299 ]
-    ]
-  end
-
   describe "#render_from_csv" do
     let(:xml) do
       raw_svg = svg_builder.render_from_csv
@@ -64,98 +56,115 @@ RSpec.describe SvgBuilder do
       end
     end
 
-    it 'has x-axis' do
-      expect(x_line['x1'].value).to eq '0'
-      expect(x_line['x2'].value).to eq '1000'
-      expect(x_line['y1'].value).to eq '999'
-      expect(x_line['y2'].value).to eq '999'
+    describe "things which don't depend on the data" do
+      let(:data) { [] }
+
+      it 'has an svg width' do
+        expect(svg['width'].value).to eq "100%"
+      end
+
+      it 'has an svg height' do
+        expect(svg['height'].value).to eq "95%"
+      end
+
+      it 'has correct viewBox coordinates' do
+        expect(svg['viewBox'].value).to eq "0 0 1000 1000"
+      end
     end
 
-    it 'has correct first y tick label' do
-      expect(y_tick_text[0]).to eq "3"
-      expect(y_tick_labels[0]['x']).to eq('12')
-      expect(y_tick_labels[0]['y']).to eq('1005')
+    describe "with the default data" do
+      let(:data) do
+        [
+          [ DateTime.parse("2025-02-14T03:56+07:00"), 308 ],
+          [ DateTime.parse("2025-02-14T04:01+07:00"), 308 ],
+          [ DateTime.parse("2025-02-14T04:06+07:00"), 299 ]
+        ]
+      end
+
+      it 'has x-axis' do
+        expect(x_line['x1'].value).to eq '0'
+        expect(x_line['x2'].value).to eq '1000'
+        expect(x_line['y1'].value).to eq '999'
+        expect(x_line['y2'].value).to eq '999'
+      end
+
+      it 'has correct first y tick label' do
+        expect(y_tick_text[0]).to eq "3"
+        expect(y_tick_labels[0]['x']).to eq('12')
+        expect(y_tick_labels[0]['y']).to eq('1005')
+      end
+
+      it 'has correct last y tick label' do
+        expect(y_tick_text[10]).to eq "3"
+        expect(y_tick_labels[10]['x']).to eq('12')
+        expect(y_tick_labels[10]['y']).to eq('5')
+      end
+
+      it 'has correct first x tick label' do
+        expect(x_tick_text[0]).to eq "02/13"
+        expect(x_tick_labels[0]['x']).to eq('-17')
+        expect(x_tick_labels[0]['y']).to eq('985')
+      end
+
+      it 'has correct last x tick label' do
+        expect(x_tick_text[10]).to eq "02/13"
+        expect(x_tick_labels[10]['x']).to eq('983')
+        expect(x_tick_labels[10]['y']).to eq('985')
+      end
+
+
+
+      it 'has y-axis' do
+        expect(y_line['x1'].value).to eq '1'
+        expect(y_line['x2'].value).to eq '1'
+        expect(y_line['y1'].value).to eq '0'
+        expect(y_line['y2'].value).to eq '1000'
+      end
+
+      it "has correct 1st x tick" do
+        assert_x_tick_mark(0)
+      end
+
+      it "has correct 5th x tick" do
+        assert_x_tick_mark(4)
+      end
+
+      it "has correct 8th x tick" do
+        assert_x_tick_mark(7)
+      end
+
+      it "has correct 9th x tick" do
+        assert_x_tick_mark(9)
+      end
+
+      it "has correct 10th x tick" do
+        assert_x_tick_mark(10)
+      end
+
+      it "has correct 1st y tick" do
+        assert_y_tick_mark(0)
+      end
+      it "has correct 5th y tick" do
+        assert_y_tick_mark(4)
+      end
+      it "has correct 10th y tick" do
+        assert_y_tick_mark(9)
+      end
+
+      it 'has a polyline with correct stroke coordinates' do
+        expect(polyline['points'].value).to eq "0,0 300,0 600,9"
+      end
+
+      it 'has a polyline with correct stroke color' do
+        expect(polyline['stroke'].value).to eq 'white'
+      end
+
+      it 'has a polyline with correct stroke width' do
+        expect(polyline['stroke-width'].value).to eq '20px'
+      end
     end
 
-    it 'has correct last y tick label' do
-      expect(y_tick_text[10]).to eq "3"
-      expect(y_tick_labels[10]['x']).to eq('12')
-      expect(y_tick_labels[10]['y']).to eq('5')
-    end
-
-    it 'has correct first x tick label' do
-      expect(x_tick_text[0]).to eq "02/13"
-      expect(x_tick_labels[0]['x']).to eq('-17')
-      expect(x_tick_labels[0]['y']).to eq('985')
-    end
-
-    it 'has correct last x tick label' do
-      expect(x_tick_text[10]).to eq "02/13"
-      expect(x_tick_labels[10]['x']).to eq('983')
-      expect(x_tick_labels[10]['y']).to eq('985')
-    end
-
-
-
-    it 'has y-axis' do
-      expect(y_line['x1'].value).to eq '1'
-      expect(y_line['x2'].value).to eq '1'
-      expect(y_line['y1'].value).to eq '0'
-      expect(y_line['y2'].value).to eq '1000'
-    end
-
-    it "has correct 1st x tick" do
-      assert_x_tick_mark(0)
-    end
-
-    it "has correct 5th x tick" do
-      assert_x_tick_mark(4)
-    end
-
-    it "has correct 8th x tick" do
-      assert_x_tick_mark(7)
-    end
-
-    it "has correct 9th x tick" do
-      assert_x_tick_mark(9)
-    end
-
-    it "has correct 10th x tick" do
-      assert_x_tick_mark(10)
-    end
-
-    it "has correct 1st y tick" do
-      assert_y_tick_mark(0)
-    end
-    it "has correct 5th y tick" do
-      assert_y_tick_mark(4)
-    end
-    it "has correct 10th y tick" do
-      assert_y_tick_mark(9)
-    end
-
-    it 'has an svg width' do
-      expect(svg['width'].value).to eq "100%"
-    end
-
-    it 'has an svg height' do
-      expect(svg['height'].value).to eq "95%"
-    end
-
-    it 'has correct viewBox coordinates' do
-      expect(svg['viewBox'].value).to eq "0 0 1000 1000"
-    end
-
-    it 'has a polyline with correct stroke coordinates' do
-      expect(polyline['points'].value).to eq "0,0 300,0 600,9"
-    end
-
-    it 'has a polyline with correct stroke color' do
-      expect(polyline['stroke'].value).to eq 'white'
-    end
-
-    it 'has a polyline with correct stroke width' do
-      expect(polyline['stroke-width'].value).to eq '20px'
+    describe "" do
     end
   end
 end
