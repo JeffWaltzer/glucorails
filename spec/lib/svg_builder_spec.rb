@@ -91,13 +91,13 @@ RSpec.describe SvgBuilder do
       end
 
       it 'has correct first y tick label' do
-        expect(y_tick_text[0]).to eq "3"
+        expect(y_tick_text[0]).to eq "299"
         expect(y_tick_labels[0]['x']).to eq('12')
         expect(y_tick_labels[0]['y']).to eq('1005')
       end
 
       it 'has correct last y tick label' do
-        expect(y_tick_text[10]).to eq "3"
+        expect(y_tick_text[10]).to eq "308"
         expect(y_tick_labels[10]['x']).to eq('12')
         expect(y_tick_labels[10]['y']).to eq('5')
       end

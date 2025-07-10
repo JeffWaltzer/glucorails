@@ -78,7 +78,7 @@ class SvgBuilder
 
   def y_tick_label(index)
     glucose_value = (((@data.y_max - @data.y_min) * index/10.0 +
-                      @data.y_min) / 100.0).round
+                      @data.y_min)).round
 
     @svg_canvas.text glucose_value,
                      x: 12,
