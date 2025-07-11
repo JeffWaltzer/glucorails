@@ -1,13 +1,4 @@
-class XTicMark
-  TIC_COLOR = :white
-  TEXT_COLOR = :white
-
-  def initialize(index, data, number_of_x_ticks)
-    @index = index
-    @data = data
-    @number_of_x_ticks = number_of_x_ticks
-  end
-
+class XTicMark < TicMark
   def draw(svg_canvas)
     svg_canvas.line class: "x-tick",
                      x1: 100*@index,
@@ -33,7 +24,7 @@ class XTicMark
 
   def tick_time
     Time.at(
-      @data.width * @index/@number_of_x_ticks +
+      @data.width * @index/@number_of_tics +
       @data.x_min + @data.min_x
     )
   end
