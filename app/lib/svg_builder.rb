@@ -132,26 +132,21 @@ class SvgBuilder
     end
   end
 
-  def draw_healthy_sugar_lines
-    if @data.range.include?(HEALTHY_SUGAR_HIGH)
+  def draw_sugar_line(sugar_value, color, id)
+    if @data.range.include?(sugar_value)
       @svg_canvas.line x1: @data.x_min,
-                       y1: @data.y_max - HEALTHY_SUGAR_HIGH,
+                       y1: @data.y_max - sugar_value,
                        x2: @data.x_max,
-                       y2: @data.y_max - HEALTHY_SUGAR_HIGH,
-                       stroke: "red",
+                       y2: @data.y_max - sugar_value,
+                       stroke: color,
                        stroke_width: "2px",
-                       id: "high-sugar"
+                       id: id
     end
+  end
 
-    if @data.range.include?(HEALTHY_SUGAR_LOW)
-      @svg_canvas.line x1: @data.x_min,
-                       y1: @data.y_max - HEALTHY_SUGAR_LOW,
-                       x2: @data.x_max,
-                       y2: @data.y_max - HEALTHY_SUGAR_LOW,
-                       stroke: "green",
-                       stroke_width: "2px",
-                       id: "low-sugar"
-    end
+  def draw_healthy_sugar_lines
+    draw_sugar_line(HEALTHY_SUGAR_HIGH, "red", "high-sugar")
+    draw_sugar_line(HEALTHY_SUGAR_LOW, "red", "low-sugar")
   end
 
   def draw_graph
