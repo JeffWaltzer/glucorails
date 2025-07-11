@@ -49,6 +49,10 @@ class SvgPoints
     [ x_min, 0, width, height ].join(" ")
   end
 
+  def range
+    (y_min..y_max)
+  end
+
   private
 
   def point_string(point)

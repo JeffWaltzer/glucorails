@@ -1,4 +1,8 @@
 class SvgBuilder
+  # Put these somewhere else.
+  HEALTHY_SUGAR_LOW = 70
+  HEALTHY_SUGAR_HIGH = 180
+
   STROKE_COLOR = :white
   TIC_COLOR = :white
   TEXT_COLOR = :white
@@ -124,6 +128,29 @@ class SvgBuilder
                    width: "100%",
                    height: "100%" do
       draw_points_line
+      draw_healthy_sugar_lines
+    end
+  end
+
+  def draw_healthy_sugar_lines
+    if @data.range.include?(HEALTHY_SUGAR_HIGH)
+      @svg_canvas.line x1: @data.x_min,
+                       y1: @data.y_max - HEALTHY_SUGAR_HIGH,
+                       x2: @data.x_max,
+                       y2: @data.y_max - HEALTHY_SUGAR_HIGH,
+                       stroke: "red",
+                       stroke_width: "2px",
+                       id: "high-sugar"
+    end
+
+    if @data.range.include?(HEALTHY_SUGAR_LOW)
+      @svg_canvas.line x1: @data.x_min,
+                       y1: @data.y_max - HEALTHY_SUGAR_LOW,
+                       x2: @data.x_max,
+                       y2: @data.y_max - HEALTHY_SUGAR_LOW,
+                       stroke: "green",
+                       stroke_width: "2px",
+                       id: "low-sugar"
     end
   end
 

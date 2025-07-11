@@ -52,6 +52,9 @@ RSpec.describe SvgBuilder do
 
     let(:svg) { xml.at_xpath('/svg').attributes }
     let(:polyline) { xml.at_xpath('/svg/svg/polyline').attributes }
+    let(:high_sugar_line) { xml.at_xpath('/svg/svg/line[@id="high-sugar"]')&.attributes }
+    let(:low_sugar_line)  { xml.at_xpath('/svg/svg/line[@id="low-sugar"]')&.attributes }
+
     let(:no_data_message) { xml.at_xpath('/svg/text').text.strip }
 
     let(:x_line) {xml.css('#x-axis').first.attributes}
@@ -67,6 +70,7 @@ RSpec.describe SvgBuilder do
     let(:x_tick_time_labels) {xml.css('.x-tick-time-label')}
     let(:x_tick_date_text) {x_tick_date_labels.map(&:text).map(&:strip)}
     let(:x_tick_time_text) {x_tick_time_labels.map(&:text).map(&:strip)}
+
 
     describe "when there is no data" do
       let(:data) { [] }
@@ -106,6 +110,14 @@ RSpec.describe SvgBuilder do
         expect(x_line['x2'].value).to eq '1000'
         expect(x_line['y1'].value).to eq '999'
         expect(x_line['y2'].value).to eq '999'
+      end
+
+      it "does not have a low-sugar line" do
+        expect(low_sugar_line).to be_nil
+      end
+
+      it "does not have a high-sugar line" do
+        expect(high_sugar_line).to be_nil
       end
 
       it "has the correct y[0] tic label" do
@@ -194,25 +206,33 @@ RSpec.describe SvgBuilder do
       end
     end
 
-    describe "with the default data" do
+    describe "with data that spans several days" do
       let(:data) do
         [
-          [ DateTime.parse("2025-02-14T03:56-500"), 99 ],
-          [ DateTime.parse("2025-02-15T04:01-500"), 86 ],
-          [ DateTime.parse("2025-02-16T04:06-500"),  3 ]
+          [ DateTime.parse("2025-02-14T03:56-500"), 60 ],
+          [ DateTime.parse("2025-02-15T04:01-500"), 150 ],
+          [ DateTime.parse("2025-02-16T04:06-500"), 200 ]
         ]
       end
 
+      it "has a low-sugar line" do
+        expect(low_sugar_line).to be
+      end
+
+      it "has a high-sugar line" do
+        expect(high_sugar_line).to be
+      end
+
       it "has the correct y[0] tic label" do
-        has_correct_y_tick_label 0, expected_text: "3", expected_y_position: "1005"
+        has_correct_y_tick_label 0, expected_text: "60", expected_y_position: "1005"
       end
 
       it "has the correct y[5] tic label" do
-        has_correct_y_tick_label 5, expected_text: "51", expected_y_position: "505"
+        has_correct_y_tick_label 5, expected_text: "130", expected_y_position: "505"
       end
 
       it 'has the correct y[10] tic label' do
-        has_correct_y_tick_label 10, expected_text: "99", expected_y_position: "5"
+        has_correct_y_tick_label 10, expected_text: "200", expected_y_position: "5"
       end
 
       it 'has the correct x[0] date label' do
