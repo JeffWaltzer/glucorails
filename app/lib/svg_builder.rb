@@ -43,10 +43,14 @@ class SvgBuilder
     @data.y_max - sugar_value
   end
 
-  def draw_x_axis_ticks
+  def draw_axis_ticks(tik_klass, number_of_tics)
     (0..number_of_x_ticks).each do |index|
-      XTicMark.new(index, @data, number_of_x_ticks).draw(@svg_canvas)
+      tik_klass.new(index, @data, number_of_tics).draw(@svg_canvas)
     end
+  end    
+
+  def draw_x_axis_ticks
+    draw_axis_ticks(XTicMark, number_of_x_ticks)
   end
 
   def draw_x_axis
@@ -60,7 +64,7 @@ class SvgBuilder
   end
 
   def draw_y_axis_ticks
-    (0..number_of_y_ticks).each { |index| YTicMark.new(index, @data, number_of_y_ticks).draw(@svg_canvas) }
+    draw_axis_ticks(YTicMark, number_of_y_ticks)
   end
 
   def draw_y_axis
@@ -97,7 +101,7 @@ class SvgBuilder
                        x2: @data.x_max,
                        y2: invert(sugar_value),
                        stroke: color,
-                       stroke_width: "2px",
+                       stroke_width: "1px",
                        id: id
     end
   end
