@@ -59,29 +59,8 @@ class SvgBuilder
     draw_x_axis_ticks
   end
 
-  def y_tick_label(index)
-    glucose_value = ((invert(@data.y_min) * index/number_of_y_ticks.to_f +
-                      @data.y_min)).round
-
-    @svg_canvas.text glucose_value,
-                     x: 12,
-                     y: 100*(number_of_y_ticks-index)+5,
-                     style: "fill: #{TEXT_COLOR}",
-                     class: "y-tick-label"
-  end
-
-  def draw_y_axis_tick(index)
-    @svg_canvas.line class: "y-tick",
-                     x1: 0,
-                     x2: 10,
-                     y1: 100*(index),
-                     y2: 100*(index),
-                     stroke: TIC_COLOR
-    y_tick_label(index)
-  end
-
   def draw_y_axis_ticks
-    (0..number_of_y_ticks).each { |index| draw_y_axis_tick(index) }
+    (0..number_of_y_ticks).each { |index| YTicMark.new(index, @data, number_of_y_ticks).draw(@svg_canvas) }
   end
 
   def draw_y_axis
