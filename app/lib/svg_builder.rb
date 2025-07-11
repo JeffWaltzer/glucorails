@@ -4,8 +4,8 @@ class SvgBuilder
   HEALTHY_SUGAR_HIGH = 180
 
   STROKE_COLOR = :white
-  TIC_COLOR = :white
   TEXT_COLOR = :white
+  TIC_COLOR = :white
 
   def initialize(data)
     @data = SvgPoints.new(data)
@@ -13,7 +13,7 @@ class SvgBuilder
                                  preserveAspectRatio: :none,
                                  height: "95%",
                                  width: "100%"
- end
+  end
 
   def render_from_csv
     if @data.empty?
@@ -27,47 +27,26 @@ class SvgBuilder
 
   private
 
+  def number_of_x_ticks
+    10
+  end
+
+  def number_of_y_ticks
+    10
+  end
+
   def draw_empty_graph
     @svg_canvas.text "No data"
   end
 
-  def x_tick_date_label(index)
-    tick_time = (@data.x_max - @data.x_min) * index/10.0 +
-                @data.x_min + @data.min_x
-
-    Time.at(tick_time).strftime("%m/%d")
-  end
-
-  def x_tick_time_label(index)
-    tick_time = (@data.x_max - @data.x_min) * index/10.0 +
-                @data.x_min + @data.min_x
-
-    Time.at(tick_time).strftime("%l:%M %P")
-  end
-
-  def draw_x_axis_tick(index)
-      @svg_canvas.line class: "x-tick",
-                      x1: 100*(index),
-                      x2: 100*(index),
-                      y1: 1000,
-                      y2: 990,
-                      stroke: TIC_COLOR
-
-      @svg_canvas.text x_tick_date_label(index),
-                      x: 100*(index) - 17,
-                      y: 965,
-                      style: "fill: #{TEXT_COLOR}",
-                      class: "x-tick-date-label"
-
-      @svg_canvas.text x_tick_time_label(index),
-                      x: 100*(index) - 17,
-                      y: 985,
-                      style: "fill: #{TEXT_COLOR}",
-                      class: "x-tick-time-label"
+  def invert(sugar_value)
+    @data.y_max - sugar_value
   end
 
   def draw_x_axis_ticks
-    (0..10).each { |index| draw_x_axis_tick(index) }
+    (0..number_of_x_ticks).each do |index|
+      XTicMark.new(index, @data, number_of_x_ticks).draw(@svg_canvas)
+    end
   end
 
   def draw_x_axis
@@ -81,12 +60,12 @@ class SvgBuilder
   end
 
   def y_tick_label(index)
-    glucose_value = (((@data.y_max - @data.y_min) * index/10.0 +
+    glucose_value = ((invert(@data.y_min) * index/number_of_y_ticks.to_f +
                       @data.y_min)).round
 
     @svg_canvas.text glucose_value,
                      x: 12,
-                     y: 100*(10-index)+5,
+                     y: 100*(number_of_y_ticks-index)+5,
                      style: "fill: #{TEXT_COLOR}",
                      class: "y-tick-label"
   end
@@ -102,7 +81,7 @@ class SvgBuilder
   end
 
   def draw_y_axis_ticks
-    (0..10).each { |index| draw_y_axis_tick(index) }
+    (0..number_of_y_ticks).each { |index| draw_y_axis_tick(index) }
   end
 
   def draw_y_axis
@@ -124,9 +103,9 @@ class SvgBuilder
 
   def draw_data
     @svg_canvas.svg viewBox: @data.viewbox,
-                   preserveAspectRatio: :none,
-                   width: "100%",
-                   height: "100%" do
+                    preserveAspectRatio: :none,
+                    width: "100%",
+                    height: "100%" do
       draw_points_line
       draw_healthy_sugar_lines
     end
@@ -135,9 +114,9 @@ class SvgBuilder
   def draw_sugar_line(sugar_value, color, id)
     if @data.range.include?(sugar_value)
       @svg_canvas.line x1: @data.x_min,
-                       y1: @data.y_max - sugar_value,
+                       y1: invert(sugar_value),
                        x2: @data.x_max,
-                       y2: @data.y_max - sugar_value,
+                       y2: invert(sugar_value),
                        stroke: color,
                        stroke_width: "2px",
                        id: id
