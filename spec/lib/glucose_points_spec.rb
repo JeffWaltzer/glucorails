@@ -12,12 +12,22 @@ RSpec.describe GlucosePoints do
 
     let(:now) { DateTime.now }
 
-    subject(:glucose_points) {
-      GlucosePoints.new(points)
-    }
+    subject(:glucose_points) { GlucosePoints.new(points) }
 
     it 'acts like an array' do
       expect(glucose_points.first).to eq [now, 150]
+    end
+
+    it 'has equality' do
+      expect(glucose_points == GlucosePoints.new(points)).to be_truthy
+    end
+
+    it 'has not equality' do
+      expect(glucose_points == Object.new).to be_false
+    end
+
+    it '#each' do
+      expect(glucose_points.each).to be_instance_of(Enumerator)
     end
 
   end

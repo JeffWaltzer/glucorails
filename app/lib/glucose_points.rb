@@ -15,6 +15,7 @@ class GlucosePoints
   end
 
   def == (other)
+    puts "XYZZY DEBUG: #{other.inspect}"
     other&.points == self.points
   end
 
