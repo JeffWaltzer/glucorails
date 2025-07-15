@@ -22,4 +22,13 @@ class GlucosePoints
     @points.empty?
   end
 
+  def time_values
+    map(&:first)
+  end
+
+  def glucose_values
+    map(&:second)
+  end
+
+
 end

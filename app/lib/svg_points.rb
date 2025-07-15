@@ -3,7 +3,7 @@ class SvgPoints
 
   def initialize(data)
     @data=data
-    @start_time = time_values.min
+    @start_time = data.time_values.min
   end
 
   def empty?
@@ -15,7 +15,7 @@ class SvgPoints
   end
 
   def x_min
-    0
+    @x_min ||= time_values.map(&:to_i).min - @start_time.to_i
   end
 
   def y_min
@@ -48,14 +48,12 @@ class SvgPoints
 
   private
 
-  private
-
   def time_values
-    @data.map(&:first)
+    @data.time_values
   end
 
   def glucose_values
-    @data.map(&:second)
+    @data.glucose_values
   end
 
   def point_string(point)

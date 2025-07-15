@@ -73,7 +73,7 @@ RSpec.describe SvgBuilder do
 
 
     describe "when there is no data" do
-      let(:data) { [] }
+      let(:data) {GlucosePoints.new( [] )}
 
       it "copes sanely" do
         expect(no_data_message).to eq("No data")
@@ -81,7 +81,7 @@ RSpec.describe SvgBuilder do
     end
 
     describe "things which don't depend on the data" do
-      let(:data) { [] }
+      let(:data) {GlucosePoints.new( []) }
 
       it 'has an svg width' do
         expect(svg['width'].value).to eq "100%"
@@ -98,11 +98,12 @@ RSpec.describe SvgBuilder do
 
     describe "with the default data" do
       let(:data) do
+        GlucosePoints.new(
         [
           [ DateTime.parse("2025-02-14T03:56-500"), 308 ],
           [ DateTime.parse("2025-02-14T04:01-500"), 308 ],
           [ DateTime.parse("2025-02-14T04:06-500"), 299 ]
-        ]
+        ])
       end
 
       it 'has x-axis' do
@@ -208,11 +209,11 @@ RSpec.describe SvgBuilder do
 
     describe "with data that spans several days" do
       let(:data) do
-        [
+        GlucosePoints.new([
           [ DateTime.parse("2025-02-14T03:56-500"), 60 ],
           [ DateTime.parse("2025-02-15T04:01-500"), 150 ],
           [ DateTime.parse("2025-02-16T04:06-500"), 200 ]
-        ]
+        ])
       end
 
       it "has a low-sugar line" do

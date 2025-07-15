@@ -2,11 +2,12 @@ RSpec.describe SvgPoints do
   subject(:points) { SvgPoints.new(raw_data) }
 
   let(:raw_data) do
-    [
-      [DateTime.parse("2025-02-14T03:56+07:00"), 308],
-      [DateTime.parse("2025-02-14T04:01+07:00"), 308],
-      [DateTime.parse("2025-02-14T04:06+07:00"), 299]
-    ]
+    GlucosePoints.new(
+      [
+        [DateTime.parse("2025-02-14T03:56+07:00"), 308],
+        [DateTime.parse("2025-02-14T04:01+07:00"), 308],
+        [DateTime.parse("2025-02-14T04:06+07:00"), 299]
+      ])
   end
 
   it "@min_x has the right value" do
@@ -15,11 +16,11 @@ RSpec.describe SvgPoints do
   end
 
   it "@data has the right value" do
-    expected_value = [
+    expected_value = GlucosePoints.new( [
       [DateTime.parse("2025-02-14T03:56+07:00"), 308],
       [DateTime.parse("2025-02-14T04:01+07:00"), 308],
       [DateTime.parse("2025-02-14T04:06+07:00"), 299]
-    ]
+    ])
 
     expect(points.instance_variable_get(:@data)).to eq(expected_value)
   end
@@ -32,7 +33,7 @@ RSpec.describe SvgPoints do
     end
 
     describe "when there is no data" do
-      let(:raw_data) { [] }
+      let(:raw_data) { GlucosePoints.new( []) }
 
       it "returns true" do
         expect(points.empty?).to be true
