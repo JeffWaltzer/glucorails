@@ -6,7 +6,7 @@ class GlucosePoints
 
   def each
     return points.each unless block_given?
-    @points.each {|point| yield point}
+    @points.each { |point| yield point }
     self
   end
 
@@ -15,8 +15,7 @@ class GlucosePoints
   end
 
   def == (other)
-    puts "XYZZY DEBUG: #{other.inspect}"
-    other&.points == self.points
+    other.is_a?(GlucosePoints) && other.points == self.points
   end
 
 end

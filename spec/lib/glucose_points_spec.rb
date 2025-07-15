@@ -23,7 +23,7 @@ RSpec.describe GlucosePoints do
     end
 
     it 'has not equality' do
-      expect(glucose_points == Object.new).to be_false
+      expect(glucose_points == Object.new).to be_falsey
     end
 
     it '#each' do
