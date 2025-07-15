@@ -18,4 +18,8 @@ class GlucosePoints
     other.is_a?(GlucosePoints) && other.points == self.points
   end
 
+  def empty?
+    @points.empty?
+  end
+
 end

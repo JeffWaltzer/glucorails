@@ -2,23 +2,23 @@ RSpec.describe SvgPoints do
   subject(:points) { SvgPoints.new(raw_data) }
 
   let(:raw_data) do
-      [
-        [ DateTime.parse("2025-02-14T03:56+07:00"), 308 ],
-        [ DateTime.parse("2025-02-14T04:01+07:00"), 308 ],
-        [ DateTime.parse("2025-02-14T04:06+07:00"), 299 ]
-      ]
-  end    
+    [
+      [DateTime.parse("2025-02-14T03:56+07:00"), 308],
+      [DateTime.parse("2025-02-14T04:01+07:00"), 308],
+      [DateTime.parse("2025-02-14T04:06+07:00"), 299]
+    ]
+  end
 
   it "@min_x has the right value" do
-    expected_value = raw_data.first.first.to_i
+    expected_value = raw_data.first.first
     expect(points.start_time).to eq(expected_value)
   end
 
   it "@data has the right value" do
     expected_value = [
-      [   0, 308 ],
-      [ 300, 308 ],
-      [ 600, 299 ]
+      [DateTime.parse("2025-02-14T03:56+07:00"), 308],
+      [DateTime.parse("2025-02-14T04:01+07:00"), 308],
+      [DateTime.parse("2025-02-14T04:06+07:00"), 299]
     ]
 
     expect(points.instance_variable_get(:@data)).to eq(expected_value)

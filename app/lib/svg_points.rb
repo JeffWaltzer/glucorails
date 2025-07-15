@@ -2,15 +2,8 @@ class SvgPoints
   attr_reader :start_time
 
   def initialize(data)
-    @data = data.map do |datum|
-      [ datum.first.to_i, datum.second ]
-    end
-
-    @start_time = time_values.min.to_i
-
-    @data = @data.map do |point|
-      [point.first - @start_time, point.second ]
-    end
+    @data=data
+    @start_time = time_values.min
   end
 
   def empty?
@@ -30,7 +23,7 @@ class SvgPoints
   end
 
   def x_max
-    @x_max ||= time_values.map(&:to_i).max
+    @x_max ||= time_values.map(&:to_i).max - @start_time.to_i
   end
 
   def y_max
@@ -55,6 +48,8 @@ class SvgPoints
 
   private
 
+  private
+
   def time_values
     @data.map(&:first)
   end
@@ -64,6 +59,6 @@ class SvgPoints
   end
 
   def point_string(point)
-    "#{point.first.to_i},#{y_max - point.second}"
+    "#{point.first.to_i - @start_time.to_i},#{y_max - point.second}"
   end
 end

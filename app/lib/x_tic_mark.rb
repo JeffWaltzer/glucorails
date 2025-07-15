@@ -25,7 +25,7 @@ class XTicMark < TicMark
   def tick_time
     Time.at(
       @data.width * @index/@number_of_tics +
-      @data.x_min + @data.start_time
+      @data.x_min + @data.start_time.to_i
     )
   end
 
