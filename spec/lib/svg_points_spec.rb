@@ -11,7 +11,7 @@ RSpec.describe SvgPoints do
 
   it "@min_x has the right value" do
     expected_value = raw_data.first.first.to_i
-    expect(points.instance_variable_get(:@min_x)).to eq(expected_value)
+    expect(points.start_time).to eq(expected_value)
   end
 
   it "@data has the right value" do

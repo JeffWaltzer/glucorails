@@ -15,8 +15,10 @@ RSpec.describe GlucosePoints do
     subject(:glucose_points) {
       GlucosePoints.new(points)
     }
+
     it 'acts like an array' do
       expect(glucose_points.first).to eq [now, 150]
     end
+
   end
 end

@@ -1,15 +1,15 @@
 class SvgPoints
-  attr_reader :min_x
+  attr_reader :start_time
 
-  def initialize(raw_data)
-    @data = raw_data.dup.map do |datum|
+  def initialize(data)
+    @data = data.map do |datum|
       [ datum.first.to_i, datum.second ]
     end
 
-    @min_x = raw_data.map(&:first).min.to_i
+    @start_time = time_values.min.to_i
 
     @data = @data.map do |point|
-      [ point.first - @min_x, point.second ]
+      [point.first - @start_time, point.second ]
     end
   end
 
@@ -26,15 +26,15 @@ class SvgPoints
   end
 
   def y_min
-    @y_min ||= @data.map(&:second).min
+    @y_min ||= glucose_values.min
   end
 
   def x_max
-    @x_max ||= @data.map(&:first).map(&:to_i).max
+    @x_max ||= time_values.map(&:to_i).max
   end
 
   def y_max
-    @y_max ||= @data.map(&:second).max
+    @y_max ||= glucose_values.max
   end
 
   def width
@@ -54,6 +54,14 @@ class SvgPoints
   end
 
   private
+
+  def time_values
+    @data.map(&:first)
+  end
+
+  def glucose_values
+    @data.map(&:second)
+  end
 
   def point_string(point)
     "#{point.first.to_i},#{y_max - point.second}"

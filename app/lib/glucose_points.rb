@@ -18,8 +18,4 @@ class GlucosePoints
     other&.points == self.points
   end
 
-  # def first
-  #   @points.first
-  # end
-
 end
