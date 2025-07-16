@@ -30,5 +30,24 @@ class GlucosePoints
     map(&:second)
   end
 
+  def y_max
+    @y_max ||= glucose_values.max
+  end
+
+  def sugar_in_range(sugar_value)
+    range.include?(sugar_value)
+  end
+
+  def y_min
+    @y_min ||= glucose_values.min
+  end
+
+  def y_max
+    @y_max ||= glucose_values.max
+  end
+
+  def range
+    (y_min..y_max)
+  end
 
 end

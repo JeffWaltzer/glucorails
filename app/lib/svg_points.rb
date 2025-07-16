@@ -22,12 +22,12 @@ class SvgPoints
     @y_min ||= glucose_values.min
   end
 
-  def x_max
-    @x_max ||= time_values.map(&:to_i).max - @start_time.to_i
-  end
-
   def y_max
     @y_max ||= glucose_values.max
+  end
+
+  def x_max
+    @x_max ||= time_values.map(&:to_i).max - @start_time.to_i
   end
 
   def width
@@ -40,10 +40,6 @@ class SvgPoints
 
   def viewbox
     [ x_min, 0, width, height ].join(" ")
-  end
-
-  def range
-    (y_min..y_max)
   end
 
   private
