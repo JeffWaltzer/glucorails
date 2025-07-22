@@ -10,43 +10,11 @@ class SvgPoints < GlucosePoints
     @points.map { |p| point_string(p) }.join(" ")
   end
 
-  def x_min
-    @x_min ||= time_values.map(&:to_i).min - @start_time.to_i
-  end
-
-  def y_min
-    @y_min ||= glucose_values.min
-  end
-
-  def y_max
-    @y_max ||= glucose_values.max
-  end
-
-  def x_max
-    @x_max ||= time_values.map(&:to_i).max - @start_time.to_i
-  end
-
-  def width
-    x_max - x_min
-  end
-
-  def height
-    y_max - y_min
-  end
-
   def viewbox
     [ x_min, 0, width, height ].join(" ")
   end
 
   private
-
-  def time_values
-    @points.time_values
-  end
-
-  def glucose_values
-    @points.glucose_values
-  end
 
   def point_string(point)
     "#{point.first.to_i - @start_time.to_i},#{y_max - point.second}"
