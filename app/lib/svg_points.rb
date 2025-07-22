@@ -1,6 +1,6 @@
 class SvgPoints < GlucosePoints
   def svg_points
-    @points.map { |p| point_string(p) }.join(" ")
+    map { |p| point_string(p) }.join(" ")
   end
 
   def viewbox
