@@ -32,7 +32,7 @@ class GlucosePoints
   end
 
   def start_time
-    @start_time ||= time_values.min
+    @start_time ||= time_values.min.to_i
   end
 
   def time_integers
@@ -40,11 +40,11 @@ class GlucosePoints
   end
 
   def x_min
-    @x_min ||= time_integers.min - start_time.to_i
+    @x_min ||= time_integers.min - start_time
   end
 
   def x_max
-    @x_max ||= time_integers.max - start_time.to_i
+    @x_max ||= time_integers.max - start_time
   end
 
   def y_min
