@@ -8,14 +8,15 @@ class SvgBuilder
   TIC_COLOR = :white
 
   def initialize(data)
-    @svg_points = SvgPoints.new(data)
-    @glucose_points = data
+    @glucose_points = GlucosePoints.new(data)
+    @svg_points = SvgPoints.new(@glucose_points)
     @svg_canvas = Victor::SVG.new viewBox: [0, 0, 1000, 1000],
                                   preserveAspectRatio: :none,
                                   height: "95%",
                                   width: "100%"
   end
 
+  # ToDo: Rename this
   def render_from_csv
     if @glucose_points.empty?
       draw_empty_graph
@@ -46,7 +47,7 @@ class SvgBuilder
 
   def draw_axis_ticks(tik_klass, number_of_tics)
     (0..number_of_x_ticks).each do |index|
-      tik_klass.new(index, @svg_points, number_of_tics).draw(@svg_canvas)
+      tik_klass.new(index, @glucose_points, number_of_tics).draw(@svg_canvas)
     end
   end
 
@@ -79,6 +80,7 @@ class SvgBuilder
   end
 
   def draw_points_line
+    # ToDo: rename @svg_points.svg_points
     @svg_canvas.polyline points: @svg_points.svg_points,
                          fill: :none,
                          stroke: STROKE_COLOR,
@@ -96,10 +98,10 @@ class SvgBuilder
   end
 
   def draw_sugar_line(sugar_value, color, id)
-    if @glucose_points.sugar_in_range(sugar_value)
-      @svg_canvas.line x1: @svg_points.x_min,
+    if @glucose_points.in_range(sugar_value)
+      @svg_canvas.line x1: @glucose_points.x_min,
                        y1: invert(sugar_value),
-                       x2: @svg_points.x_max,
+                       x2: @glucose_points.x_max,
                        y2: invert(sugar_value),
                        stroke: color,
                        stroke_width: "1px",

@@ -1,15 +1,25 @@
-class SvgPoints < GlucosePoints
+class SvgPoints
+  def initialize(points)
+    @points = points
+  end
+
   def svg_points
-    map { |p| point_string(p) }.join(" ")
+    points.map { |p| point_string(p) }.join(" ")
   end
 
   def viewbox
-    [ x_min, 0, width, height ].join(" ")
+    [ points.x_min,
+      0,
+      points.width,
+      points.height
+    ].join(" ")
   end
 
   private
 
+  attr_reader :points
+
   def point_string(point)
-    "#{point.first.to_i - start_time},#{y_max - point.second}"
+    "#{point.first.to_i - points.start_time},#{points.y_max - point.second}"
   end
 end

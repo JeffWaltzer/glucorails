@@ -63,11 +63,7 @@ class GlucosePoints
     y_max - y_min
   end
 
-  def sugar_in_range(sugar_value)
-    range.include?(sugar_value)
-  end
-
-  def range
-    (y_min..y_max)
+  def in_range(sugar_value)
+    (y_min..y_max).include?(sugar_value)
   end
 end
