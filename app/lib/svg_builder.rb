@@ -16,7 +16,6 @@ class SvgBuilder
                                   width: "100%"
   end
 
-  # ToDo: Rename this
   def render
     if @glucose_points.empty?
       draw_empty_graph
@@ -81,7 +80,7 @@ class SvgBuilder
 
   def draw_points_line
     # ToDo: rename @svg_points.svg_points
-    @svg_canvas.polyline points: @svg_points.svg_points,
+    @svg_canvas.polyline points: @svg_points.polyline_points,
                          fill: :none,
                          stroke: STROKE_COLOR,
                          stroke_width: "20px"

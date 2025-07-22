@@ -3,7 +3,7 @@ class SvgPoints
     @points = points
   end
 
-  def svg_points
+  def polyline_points
     points.map { |p| point_string(p) }.join(" ")
   end
 
