@@ -22,7 +22,7 @@ RSpec.describe SvgPoints do
       [DateTime.parse("2025-02-14T04:06+07:00"), 299]
     ])
 
-    expect(points.instance_variable_get(:@data)).to eq(expected_value)
+    expect(points.points).to eq(expected_value)
   end
 
   describe "empty?" do
@@ -43,7 +43,7 @@ RSpec.describe SvgPoints do
 
   describe "#points" do
     it "generatest the correct path" do
-      expect(subject.points).to eq("0,0 300,0 600,9")
+      expect(subject.svg_points).to eq("0,0 300,0 600,9")
     end
   end
 

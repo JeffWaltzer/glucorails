@@ -6,7 +6,7 @@ class GlucosePoints
 
   def each
     return points.each unless block_given?
-    @points.each { |point| yield point }
+    points.each { |point| yield point }
     self
   end
 
@@ -19,7 +19,7 @@ class GlucosePoints
   end
 
   def empty?
-    @points.empty?
+    points.empty?
   end
 
   def time_values

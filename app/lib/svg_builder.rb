@@ -79,7 +79,7 @@ class SvgBuilder
   end
 
   def draw_points_line
-    @svg_canvas.polyline points: @svg_points.points,
+    @svg_canvas.polyline points: @svg_points.svg_points,
                          fill: :none,
                          stroke: STROKE_COLOR,
                          stroke_width: "20px"

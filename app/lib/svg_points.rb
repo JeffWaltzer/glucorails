@@ -1,17 +1,13 @@
-class SvgPoints
+class SvgPoints < GlucosePoints
   attr_reader :start_time
 
-  def initialize(data)
-    @data=data
-    @start_time = data.time_values.min
+  def initialize(points)
+    super
+    @start_time = points.time_values.min
   end
 
-  def empty?
-    @data.empty?
-  end
-
-  def points
-    @data.map { |p| point_string(p) }.join(" ")
+  def svg_points
+    @points.map { |p| point_string(p) }.join(" ")
   end
 
   def x_min
@@ -45,11 +41,11 @@ class SvgPoints
   private
 
   def time_values
-    @data.time_values
+    @points.time_values
   end
 
   def glucose_values
-    @data.glucose_values
+    @points.glucose_values
   end
 
   def point_string(point)
