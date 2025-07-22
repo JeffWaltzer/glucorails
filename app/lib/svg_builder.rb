@@ -17,7 +17,7 @@ class SvgBuilder
   end
 
   # ToDo: Rename this
-  def render_from_csv
+  def render
     if @glucose_points.empty?
       draw_empty_graph
     else

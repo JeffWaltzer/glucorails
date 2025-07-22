@@ -37,9 +37,9 @@ RSpec.describe SvgBuilder do
 
   subject(:svg_builder) { described_class.new(data) }
 
-  describe "#render_from_csv" do
+  describe "#render" do
     let(:xml) do
-      raw_svg = svg_builder.render_from_csv
+      raw_svg = svg_builder.render
 
       xml = Nokogiri::XML.parse(raw_svg) do |config|
         config.options = Nokogiri::XML::ParseOptions::STRICT |
