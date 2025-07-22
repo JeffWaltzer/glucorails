@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class GlucosePoints
-  attr_reader :points
+  attr_reader :points, :start_time
 
   include Enumerable
 
@@ -12,6 +12,7 @@ class GlucosePoints
 
   def initialize(points)
     @points = points
+    @start_time = time_values.min
   end
 
   def == (other)
@@ -31,11 +32,11 @@ class GlucosePoints
   end
 
   def x_min
-    @x_min ||= time_values.map(&:to_i).min - @start_time.to_i
+    @x_min ||= time_values.map(&:to_i).min - start_time.to_i
   end
 
   def x_max
-    @x_max ||= time_values.map(&:to_i).max - @start_time.to_i
+    @x_max ||= time_values.map(&:to_i).max - start_time.to_i
   end
 
   def y_min
