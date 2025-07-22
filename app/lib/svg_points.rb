@@ -10,6 +10,6 @@ class SvgPoints < GlucosePoints
   private
 
   def point_string(point)
-    "#{point.first.to_i - start_time.to_i},#{y_max - point.second}"
+    "#{point.first.to_i - start_time},#{y_max - point.second}"
   end
 end
