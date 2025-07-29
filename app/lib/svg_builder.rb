@@ -28,8 +28,6 @@ class SvgBuilder
 
   private
 
-
-
   def draw_empty_graph
     @svg_canvas.text "No data"
   end
@@ -38,15 +36,7 @@ class SvgBuilder
     @glucose_points.y_max - sugar_value
   end
 
-  def draw_axis_ticks(tik_klass, number_of_tics)
-    (0..number_of_tics).each do |index|
-      tik_klass.new(index, @glucose_points, number_of_tics).draw(@svg_canvas)
-    end
-  end
-
-
   def draw_points_line
-    # ToDo: rename @svg_points.svg_points
     @svg_canvas.polyline points: @svg_points.polyline_points,
                          fill: :none,
                          stroke: STROKE_COLOR,
@@ -81,8 +71,8 @@ class SvgBuilder
   end
 
   def draw_graph
-    SvgComponents::XAxis.new(@svg_canvas, @glucose_points).draw_x_axis
-    SvgComponents::YAxis.new(@svg_canvas, @glucose_points).draw_y_axis
+    SvgComponents::XAxis.new(@svg_canvas, @glucose_points).draw
+    SvgComponents::YAxis.new(@svg_canvas, @glucose_points).draw
     draw_data
   end
 end
