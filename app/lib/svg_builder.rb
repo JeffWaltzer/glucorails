@@ -9,7 +9,7 @@ class SvgBuilder
 
   def initialize(data)
     @glucose_points = GlucosePoints.new(data)
-    @svg_points = SvgPoints.new(@glucose_points)
+    @svg_points = SvgComponents::PolylinePoints.new(@glucose_points)
     @svg_canvas = Victor::SVG.new viewBox: [0, 0, 1000, 1000],
                                   preserveAspectRatio: :none,
                                   height: "95%",
