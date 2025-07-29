@@ -1,4 +1,4 @@
-class YTicMark < TicMark
+class SvgComponents::YTicMark <  SvgComponents::TicMark
   def draw(svg_canvas)
     svg_canvas.line class: "y-tick",
                     x1: 0,

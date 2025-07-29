@@ -1,4 +1,4 @@
-class TicMark
+class SvgComponents::TicMark
   TIC_COLOR = :white
   TEXT_COLOR = :white
 

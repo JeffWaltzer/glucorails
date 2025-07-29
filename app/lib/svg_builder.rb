@@ -51,7 +51,7 @@ class SvgBuilder
   end
 
   def draw_x_axis_ticks
-    draw_axis_ticks(XTicMark, number_of_x_ticks)
+    draw_axis_ticks(SvgComponents::XTicMark, number_of_x_ticks)
   end
 
   def draw_x_axis
@@ -65,7 +65,7 @@ class SvgBuilder
   end
 
   def draw_y_axis_ticks
-    draw_axis_ticks(YTicMark, number_of_y_ticks)
+    draw_axis_ticks(SvgComponents::YTicMark, number_of_y_ticks)
   end
 
   def draw_y_axis
