@@ -29,9 +29,6 @@ class SvgBuilder
   private
 
 
-  def number_of_y_ticks
-    10
-  end
 
   def draw_empty_graph
     @svg_canvas.text "No data"
@@ -47,19 +44,6 @@ class SvgBuilder
     end
   end
 
-  def draw_y_axis_ticks
-    draw_axis_ticks(SvgComponents::YTicMark, number_of_y_ticks)
-  end
-
-  def draw_y_axis
-    @svg_canvas.line id: "y-axis",
-                     x1: 1,
-                     x2: 1,
-                     y1: 0,
-                     y2: 1000,
-                     stroke: STROKE_COLOR
-    draw_y_axis_ticks
-  end
 
   def draw_points_line
     # ToDo: rename @svg_points.svg_points
@@ -98,7 +82,7 @@ class SvgBuilder
 
   def draw_graph
     SvgComponents::XAxis.new(@svg_canvas, @glucose_points).draw_x_axis
-    draw_y_axis
+    SvgComponents::YAxis.new(@svg_canvas, @glucose_points).draw_y_axis
     draw_data
   end
 end
