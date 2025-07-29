@@ -28,9 +28,6 @@ class SvgBuilder
 
   private
 
-  def number_of_x_ticks
-    10
-  end
 
   def number_of_y_ticks
     10
@@ -45,23 +42,9 @@ class SvgBuilder
   end
 
   def draw_axis_ticks(tik_klass, number_of_tics)
-    (0..number_of_x_ticks).each do |index|
+    (0..number_of_tics).each do |index|
       tik_klass.new(index, @glucose_points, number_of_tics).draw(@svg_canvas)
     end
-  end
-
-  def draw_x_axis_ticks
-    draw_axis_ticks(SvgComponents::XTicMark, number_of_x_ticks)
-  end
-
-  def draw_x_axis
-    @svg_canvas.line id: "x-axis",
-                     x1: 0,
-                     x2: 1000,
-                     y1: 999,
-                     y2: 999,
-                     stroke: STROKE_COLOR
-    draw_x_axis_ticks
   end
 
   def draw_y_axis_ticks
@@ -114,7 +97,7 @@ class SvgBuilder
   end
 
   def draw_graph
-    draw_x_axis
+    SvgComponents::XAxis.new(@svg_canvas, @glucose_points).draw_x_axis
     draw_y_axis
     draw_data
   end
