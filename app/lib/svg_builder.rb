@@ -3,9 +3,9 @@ class SvgBuilder
   HEALTHY_SUGAR_LOW = 70
   HEALTHY_SUGAR_HIGH = 180
 
-  STROKE_COLOR = :white
-  TEXT_COLOR = :white
-  TIC_COLOR = :white
+  STROKE_COLOR = "white"
+  TEXT_COLOR = "white"
+  TIC_COLOR = "white"
 
   def initialize(data)
     @glucose_points = GlucosePoints.new(data)
@@ -29,7 +29,12 @@ class SvgBuilder
   private
 
   def draw_empty_graph
-    @svg_canvas.text "No data"
+    @svg_canvas.text(
+      "No data",
+      fill: SvgBuilder::STROKE_COLOR,
+      x: 500,
+      y: 500
+    )
   end
 
   def invert(sugar_value)
