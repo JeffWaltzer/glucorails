@@ -7,12 +7,11 @@ class GlucoseMeasurement < ApplicationRecord
     GlucosePoints.new(points)
   end
 
-  def self.latest_date
-    GlucoseMeasurement.order(:measured_at).last.measured_at
-  end
-
   def self.earliest_date
-    GlucoseMeasurement.order(:measured_at).first.measured_at
+    GlucoseMeasurement.order(:measured_at).first&.measured_at
   end
 
+  def self.latest_date
+    GlucoseMeasurement.order(:measured_at).last&.measured_at || Date.current
+  end
 end

@@ -23,13 +23,14 @@ class GraphController < ApplicationController
                                 0,
                                 0,
                                 0)
-    elsif GlucoseMeasurement.count > 0
+    else
       GlucoseMeasurement.earliest_date
     end
   end
 
   def end_time
     end_time = params_permit[:end_time]
+
     if end_time
       DateTime.new(end_time[:year].to_i,
                    end_time[:month].to_i,
@@ -37,7 +38,7 @@ class GraphController < ApplicationController
                    0,
                    0,
                    0)
-    elsif GlucoseMeasurement.count > 0
+    else
       GlucoseMeasurement.latest_date
     end
   end

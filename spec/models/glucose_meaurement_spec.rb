@@ -1,6 +1,16 @@
 RSpec.describe GlucoseMeasurement do
-  it 'returns nothing if no data' do
-    expect(GlucoseMeasurement.points_for(start_time: DateTime.new(2025, 5, 1, 0, 0, 0))).to eq(GlucosePoints.new([]))
+  describe "with no data" do
+    it "returns nothing" do
+      expect(GlucoseMeasurement.points_for(start_time: DateTime.new(2025, 5, 1, 0, 0, 0))).to eq(GlucosePoints.new([]))
+    end
+
+    it ".earliest_date returns nil" do
+      expect(GlucoseMeasurement.earliest_date).to be(nil)
+    end
+
+    it ".latest_date returns now" do
+      expect(GlucoseMeasurement.latest_date).to be_within(0.1).of(Time.now)
+    end
   end
 
   describe 'with data' do
@@ -51,6 +61,5 @@ RSpec.describe GlucoseMeasurement do
     it 'tells us the first measurement' do
       expect(GlucoseMeasurement.latest_date).to eq DateTime.parse('2025-05-04T03:56')
     end
-
   end
 end
