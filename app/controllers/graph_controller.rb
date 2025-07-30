@@ -23,7 +23,7 @@ class GraphController < ApplicationController
                                 0,
                                 0,
                                 0)
-    else
+    elsif GlucoseMeasurement.count > 0
       GlucoseMeasurement.earliest_date
     end
   end
@@ -37,7 +37,7 @@ class GraphController < ApplicationController
                    0,
                    0,
                    0)
-    else
+    elsif GlucoseMeasurement.count > 0
       GlucoseMeasurement.latest_date
     end
   end
