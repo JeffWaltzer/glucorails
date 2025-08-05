@@ -125,11 +125,11 @@ RSpec.describe SvgBuilder do
       end
 
       it "has the correct y[0] tic label" do
-        has_correct_y_tick_label 0, expected_text: "299", expected_y_position: "1005"
+        has_correct_y_tick_label 0, expected_text: "70", expected_y_position: "1005"
       end
 
       it "has the correct y[5] tic label" do
-        has_correct_y_tick_label 5, expected_text: "304", expected_y_position: "505"
+        has_correct_y_tick_label 5, expected_text: "189", expected_y_position: "505"
       end
 
       it 'has the correct y[10] tic label' do
@@ -261,6 +261,37 @@ RSpec.describe SvgBuilder do
 
       it 'has the correct x[10] tick time label' do
         has_correct_x_tick_time_label(10, expected_text: "4:06 am", expected_x_position: "983")
+      end
+    end
+
+
+    describe "with data that is entirely with health limits" do
+      let(:data) do
+        [
+          [ DateTime.parse("2025-02-14T03:56-500"),  75 ],
+          [ DateTime.parse("2025-02-15T04:01-500"), 150 ],
+          [ DateTime.parse("2025-02-16T04:06-500"), 160 ]
+        ]
+      end
+
+      it "has a low-sugar line" do
+        expect(low_sugar_line).to be
+      end
+
+      it "has a high-sugar line" do
+        expect(high_sugar_line).to be
+      end
+
+      it "has the correct y[0] tic label" do
+        has_correct_y_tick_label 0, expected_text: "70", expected_y_position: "1005"
+      end
+
+      it "has the correct y[5] tic label" do
+        has_correct_y_tick_label 5, expected_text: "125", expected_y_position: "505"
+      end
+
+      it 'has the correct y[10] tic label' do
+        has_correct_y_tick_label 10, expected_text: "180", expected_y_position: "5"
       end
     end
   end
