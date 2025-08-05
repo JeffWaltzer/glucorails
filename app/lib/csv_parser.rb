@@ -36,7 +36,7 @@ class CsvParser
         glucose: measurement.glucose
       }
     end
- 
+
     GlucoseMeasurement.insert_all(to_save, unique_by: :measured_at, returning: false)
   end
 end

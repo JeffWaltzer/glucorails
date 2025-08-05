@@ -20,6 +20,5 @@ module SvgComponents
                    stroke: AXIS_COLOR
       draw_tics
     end
-
   end
 end

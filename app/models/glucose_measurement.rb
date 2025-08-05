@@ -3,7 +3,7 @@ class GlucoseMeasurement < ApplicationRecord
     measurements = GlucoseMeasurement.where(measured_at: start_time..end_time&.end_of_day)
     points = measurements
                .pluck(:measured_at, :glucose)
-               .map {|point| [point.first.to_datetime, point.second]}
+               .map { |point| [point.first.to_datetime, point.second] }
     GlucosePoints.new(points)
   end
 
