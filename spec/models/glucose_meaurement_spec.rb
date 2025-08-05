@@ -5,11 +5,11 @@ RSpec.describe GlucoseMeasurement do
     end
 
     it ".earliest_date returns nil" do
-      expect(GlucoseMeasurement.earliest_date).to be(nil)
+      expect(GlucoseMeasurement.earliest_date).to be_nil
     end
 
     it ".latest_date returns now" do
-      expect(GlucoseMeasurement.latest_date).to eq(Date.current)
+      expect(GlucoseMeasurement.latest_date).to be_nil
     end
   end
 

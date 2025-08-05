@@ -12,6 +12,6 @@ class GlucoseMeasurement < ApplicationRecord
   end
 
   def self.latest_date
-    GlucoseMeasurement.order(:measured_at).last&.measured_at || Date.current
+    GlucoseMeasurement.order(:measured_at).last&.measured_at
   end
 end
