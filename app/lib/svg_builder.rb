@@ -55,9 +55,9 @@ class SvgBuilder
   end
 
   def draw_sugar_line(sugar_value, color, id)
-    @svg_canvas.line x1: @glucose_points.x_min,
+    @svg_canvas.line x1: @svg_points.graph_x_min,
                      y1: @svg_points.invert(sugar_value),
-                     x2: @glucose_points.x_max,
+                     x2: @svg_points.graph_x_max,
                      y2: @svg_points.invert(sugar_value),
                      stroke: color,
                      stroke_width: "1px",

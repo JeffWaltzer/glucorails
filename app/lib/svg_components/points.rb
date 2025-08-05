@@ -32,6 +32,14 @@ class SvgComponents::Points
     graph_y_max - graph_y_min
   end
 
+  def graph_x_min
+    @points.x_min
+  end
+
+  def graph_x_max
+    @points.x_max
+  end
+
   def graph_y_min
     [@points.y_min, SvgBuilder::HEALTHY_SUGAR_LOW].min
   end
