@@ -8,11 +8,40 @@ class SvgComponents::PolylinePoints
   end
 
   def viewbox
-    [ points.x_min,
-      0,
-      points.width,
-      points.height
+    [
+      viewbox_left,
+      viewbox_top,
+      viewbox_width,
+      viewbox_height
     ].join(" ")
+  end
+
+  def viewbox_left
+    points.x_min
+  end
+
+  def viewbox_top
+    0
+  end
+
+  def viewbox_width
+    points.width
+  end
+
+  def viewbox_height
+    points.height
+  end
+
+  def graph_y_min
+    [@points.y_min, SvgBuilder::HEALTHY_SUGAR_LOW].min
+  end
+
+  def graph_y_max
+    [@points.y_max, SvgBuilder::HEALTHY_SUGAR_HIGH].max
+  end
+
+  def invert(sugar_value)
+    graph_y_max - sugar_value
   end
 
   private

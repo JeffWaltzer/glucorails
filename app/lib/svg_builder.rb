@@ -37,10 +37,6 @@ class SvgBuilder
     )
   end
 
-  def invert(sugar_value)
-    @glucose_points.y_max - sugar_value
-  end
-
   def draw_points_line
     @svg_canvas.polyline points: @svg_points.polyline_points,
                          fill: :none,
@@ -61,9 +57,9 @@ class SvgBuilder
   def draw_sugar_line(sugar_value, color, id)
     if @glucose_points.in_range(sugar_value)
       @svg_canvas.line x1: @glucose_points.x_min,
-                       y1: invert(sugar_value),
+                       y1: @svg_points.invert(sugar_value),
                        x2: @glucose_points.x_max,
-                       y2: invert(sugar_value),
+                       y2: @svg_points.invert(sugar_value),
                        stroke: color,
                        stroke_width: "1px",
                        id: id
