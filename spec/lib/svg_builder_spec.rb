@@ -52,8 +52,12 @@ RSpec.describe SvgBuilder do
 
     let(:svg) { xml.at_xpath('/svg').attributes }
     let(:polyline) { xml.at_xpath('/svg/svg/polyline').attributes }
+
     let(:high_sugar_line) { xml.at_xpath('/svg/svg/line[@id="high-sugar"]')&.attributes }
+    let(:high_sugar_line_value) { high_sugar_line['y1'].value }
+
     let(:low_sugar_line)  { xml.at_xpath('/svg/svg/line[@id="low-sugar"]')&.attributes }
+    let(:low_sugar_line_value) { low_sugar_line['y1'].value }
 
     let(:no_data_message) { xml.at_xpath('/svg/text').text.strip }
 
@@ -112,12 +116,12 @@ RSpec.describe SvgBuilder do
         expect(x_line['y2'].value).to eq '999'
       end
 
-      it "does not have a low-sugar line" do
-        expect(low_sugar_line).to be_nil
+       it "has a low-sugar line" do
+        expect(low_sugar_line_value).to eq("238")
       end
 
-      it "does not have a high-sugar line" do
-        expect(high_sugar_line).to be_nil
+      it "has a high-sugar line" do
+        expect(high_sugar_line_value).to eq("128")
       end
 
       it "has the correct y[0] tic label" do

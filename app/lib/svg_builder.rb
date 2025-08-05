@@ -11,9 +11,9 @@ class SvgBuilder
     @glucose_points = GlucosePoints.new(data)
     @svg_points = SvgComponents::Points.new(@glucose_points)
     @svg_canvas = Victor::SVG.new viewBox: [0, 0, 1000, 1000],
-                                  preserveAspectRatio: :none,
-                                  height: "95%",
-                                  width: "100%"
+                                 preserveAspectRatio: :none,
+                                 height: "95%",
+                                 width: "100%"
   end
 
   def render
@@ -55,15 +55,13 @@ class SvgBuilder
   end
 
   def draw_sugar_line(sugar_value, color, id)
-    if @glucose_points.in_range(sugar_value)
-      @svg_canvas.line x1: @glucose_points.x_min,
-                       y1: @svg_points.invert(sugar_value),
-                       x2: @glucose_points.x_max,
-                       y2: @svg_points.invert(sugar_value),
-                       stroke: color,
-                       stroke_width: "1px",
-                       id: id
-    end
+    @svg_canvas.line x1: @glucose_points.x_min,
+                     y1: @svg_points.invert(sugar_value),
+                     x2: @glucose_points.x_max,
+                     y2: @svg_points.invert(sugar_value),
+                     stroke: color,
+                     stroke_width: "1px",
+                     id: id
   end
 
   def draw_healthy_sugar_lines

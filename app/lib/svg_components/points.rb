@@ -29,7 +29,7 @@ class SvgComponents::Points
   end
 
   def viewbox_height
-    points.height
+    graph_y_max - graph_y_min
   end
 
   def graph_y_min
@@ -49,6 +49,6 @@ class SvgComponents::Points
   attr_reader :points
 
   def point_string(point)
-    "#{point.first.to_i - points.start_time},#{points.y_max - point.second}"
+    "#{point.first.to_i - points.start_time},#{graph_y_max - point.second}"
   end
 end
