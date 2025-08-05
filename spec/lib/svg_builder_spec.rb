@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe SvgBuilder do
   def has_x_tick_mark(index)
-    expect(x_ticks[index]['x1']).to eq(((index ) * 100).to_s)
-    expect(x_ticks[index]['x2']).to eq(((index ) * 100).to_s)
+    expect(x_ticks[index]['x1']).to eq((index * 100).to_s)
+    expect(x_ticks[index]['x2']).to eq((index * 100).to_s)
     expect(x_ticks[index]['y1']).to eq '1000'
     expect(x_ticks[index]['y2']).to eq '990'
   end
@@ -13,8 +13,8 @@ RSpec.describe SvgBuilder do
   def has_y_tick_mark(index)
     expect(y_ticks[index]['x1']).to eq '0'
     expect(y_ticks[index]['x2']).to eq '10'
-    expect(y_ticks[index]['y1']).to eq ((index)* 100).to_s
-    expect(y_ticks[index]['y2']).to eq ((index)* 100).to_s
+    expect(y_ticks[index]['y1']).to eq (index* 100).to_s
+    expect(y_ticks[index]['y2']).to eq (index* 100).to_s
   end
 
   def has_correct_x_tick_date_label(index, expected_text:, expected_x_position:)
@@ -57,19 +57,19 @@ RSpec.describe SvgBuilder do
 
     let(:no_data_message) { xml.at_xpath('/svg/text').text.strip }
 
-    let(:x_line) {xml.css('#x-axis').first.attributes}
-    let(:y_line) {xml.css('#y-axis').first.attributes}
+    let(:x_line) { xml.css('#x-axis').first.attributes }
+    let(:y_line) { xml.css('#y-axis').first.attributes }
 
-    let(:x_ticks) {xml.css('.x-tick')}
-    let(:y_ticks) {xml.css('.y-tick')}
+    let(:x_ticks) { xml.css('.x-tick') }
+    let(:y_ticks) { xml.css('.y-tick') }
 
-    let(:y_tick_labels) {xml.css('.y-tick-label')}
-    let(:y_tick_text) {y_tick_labels.map(&:text).map(&:strip)}
+    let(:y_tick_labels) { xml.css('.y-tick-label') }
+    let(:y_tick_text) { y_tick_labels.map(&:text).map(&:strip) }
 
-    let(:x_tick_date_labels) {xml.css('.x-tick-date-label')}
-    let(:x_tick_time_labels) {xml.css('.x-tick-time-label')}
-    let(:x_tick_date_text) {x_tick_date_labels.map(&:text).map(&:strip)}
-    let(:x_tick_time_text) {x_tick_time_labels.map(&:text).map(&:strip)}
+    let(:x_tick_date_labels) { xml.css('.x-tick-date-label') }
+    let(:x_tick_time_labels) { xml.css('.x-tick-time-label') }
+    let(:x_tick_date_text) { x_tick_date_labels.map(&:text).map(&:strip) }
+    let(:x_tick_time_text) { x_tick_time_labels.map(&:text).map(&:strip) }
 
 
     describe "when there is no data" do

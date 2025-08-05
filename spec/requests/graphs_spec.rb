@@ -55,7 +55,7 @@ RSpec.describe "Graphs", type: :request do
           "FreeStyle Libre 3,99628558-b199-48dc-8a24-9ad9268aad6a,02-14-2025 05:19 PM,6,,,,,,,,,,,,,,,"
         ].join("\r\n")
       end
-      
+
       it "renders SVG" do
         expect(response.body).to include("<svg")
       end

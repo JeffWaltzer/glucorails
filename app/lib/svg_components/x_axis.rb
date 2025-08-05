@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SvgComponents
   class XAxis < Axis
 
@@ -21,5 +22,4 @@ module SvgComponents
     end
 
   end
-
 end

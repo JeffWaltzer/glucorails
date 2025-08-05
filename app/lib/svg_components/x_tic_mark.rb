@@ -8,7 +8,7 @@ class SvgComponents::XTicMark < SvgComponents::TicMark
                      stroke: TIC_COLOR
 
     svg_canvas.text x_tick_date_label,
-                     x: 100*(@index) - 17,
+                     x: 100*@index - 17,
                      y: 965,
                      style: "fill: #{TEXT_COLOR}",
                      class: "x-tick-date-label"
