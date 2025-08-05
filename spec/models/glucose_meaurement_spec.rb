@@ -9,7 +9,7 @@ RSpec.describe GlucoseMeasurement do
     end
 
     it ".latest_date returns now" do
-      expect(GlucoseMeasurement.latest_date).to be_within(0.1).of(Time.now)
+      expect(GlucoseMeasurement.latest_date).to eq(Date.current)
     end
   end
 
