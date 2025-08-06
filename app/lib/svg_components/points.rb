@@ -56,6 +56,10 @@ class SvgComponents::Points
     points.start_time
   end
 
+  def empty?
+    points.empty?
+  end
+
   private
 
   attr_reader :points

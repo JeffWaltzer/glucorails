@@ -7,9 +7,8 @@ class SvgBuilder
   TEXT_COLOR = "white"
   TIC_COLOR = "white"
 
-  def initialize(data)
-    @glucose_points = GlucosePoints.new(data)
-    @svg_points = SvgComponents::Points.new(@glucose_points)
+  def initialize(glucose_points)
+    @svg_points = SvgComponents::Points.new(glucose_points)
     @svg_canvas = Victor::SVG.new viewBox: [0, 0, 1000, 1000],
                                  preserveAspectRatio: :none,
                                  height: "95%",
@@ -17,7 +16,7 @@ class SvgBuilder
   end
 
   def render
-    if @glucose_points.empty?
+    if @svg_points.empty?
       draw_empty_graph
     else
       draw_graph

@@ -5,7 +5,8 @@ class GraphController < ApplicationController
 
     data = GlucoseMeasurement.points_for(start_time: @start_time, end_time:)
 
-    @graph = SvgBuilder.new(data).render.html_safe
+    glucose_points = GlucosePoints.new(data)
+    @graph = SvgBuilder.new(glucose_points).render.html_safe
   end
 
   def params_permit
