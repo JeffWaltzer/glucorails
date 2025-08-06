@@ -72,14 +72,6 @@ RSpec.describe GlucosePoints do
       expect(points.y_max).to eq(308)
     end
 
-    it "width returns the correct value" do
-      expect(points.width).to eq(600)
-    end
-
-    it "height returns the correct value" do
-      expect(points.height).to eq(9)
-    end
-
     describe "empty?" do
       describe "when there is data" do
         it "returns false" do

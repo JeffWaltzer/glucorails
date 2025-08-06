@@ -25,7 +25,7 @@ class SvgComponents::Points
   end
 
   def viewbox_width
-    points.width
+    graph_x_max - graph_x_min
   end
 
   def viewbox_height

@@ -54,12 +54,4 @@ class GlucosePoints
   def y_max
     @y_max ||= glucose_values.max
   end
-
-  def width
-    x_max - x_min
-  end
-
-  def height
-    y_max - y_min
-  end
 end
