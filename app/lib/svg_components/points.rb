@@ -33,23 +33,27 @@ class SvgComponents::Points
   end
 
   def graph_x_min
-    @points.x_min
+    points.x_min
   end
 
   def graph_x_max
-    @points.x_max
+    points.x_max
   end
 
   def graph_y_min
-    [@points.y_min, SvgBuilder::HEALTHY_SUGAR_LOW].min
+    [points.y_min, SvgBuilder::HEALTHY_SUGAR_LOW].min
   end
 
   def graph_y_max
-    [@points.y_max, SvgBuilder::HEALTHY_SUGAR_HIGH].max
+    [points.y_max, SvgBuilder::HEALTHY_SUGAR_HIGH].max
   end
 
   def invert(sugar_value)
     graph_y_max - sugar_value
+  end
+
+  def start_time
+    points.start_time
   end
 
   private

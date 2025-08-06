@@ -70,7 +70,7 @@ class SvgBuilder
   end
 
   def draw_graph
-    SvgComponents::XAxis.new(@svg_canvas, @glucose_points).draw
+    SvgComponents::XAxis.new(@svg_canvas, @svg_points).draw
     SvgComponents::YAxis.new(@svg_canvas, @svg_points).draw
     draw_data
   end
