@@ -7,28 +7,17 @@ module SvgComponents
       @svg_points = svg_points
     end
 
-    def draw_healthy_sugar_lines
-      draw_sugar_line(GlucosePoints::HEALTHY_SUGAR_HIGH, "red", "high-sugar")
-      draw_sugar_line(GlucosePoints::HEALTHY_SUGAR_LOW, "red", "low-sugar")
-    end
-
-    def draw_sugar_line(sugar_value, color, id)
-      @svg_canvas.line x1: @svg_points.graph_x_min,
-                       y1: @svg_points.invert(sugar_value),
-                       x2: @svg_points.graph_x_max,
-                       y2: @svg_points.invert(sugar_value),
-                       stroke: color,
-                       stroke_width: "1px",
-                       id: id
-    end
 
     def draw
       @svg_canvas.svg viewBox: @svg_points.viewbox,
                       preserveAspectRatio: :none,
                       width: "100%",
                       height: "100%" do
+
         draw_points_line
-        draw_healthy_sugar_lines
+
+        SvgComponents::SugarLine.new(@svg_canvas, @svg_points, GlucosePoints::HEALTHY_SUGAR_HIGH, "high-sugar").draw
+        SvgComponents::SugarLine.new(@svg_canvas, @svg_points, GlucosePoints::HEALTHY_SUGAR_LOW, "low-sugar").draw
       end
     end
 
