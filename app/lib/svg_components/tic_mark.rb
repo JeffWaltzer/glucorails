@@ -1,10 +1,10 @@
-class SvgComponents::TicMark
+class SvgComponents::TicMark < SvgComponents::Base
   TIC_COLOR = :white
   TEXT_COLOR = :white
 
-  def initialize(index, data, number_of_tics)
+  def initialize(svg_canvas, svg_points, index, number_of_tics)
+    super(svg_canvas,svg_points)
     @index = index
-    @svg_points = data
     @number_of_tics = number_of_tics
   end
 end

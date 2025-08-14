@@ -1,4 +1,4 @@
-class SvgComponents::Points
+class SvgPoints
   def initialize(points)
     @points = points
   end

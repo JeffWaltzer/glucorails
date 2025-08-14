@@ -1,5 +1,5 @@
-RSpec.describe SvgComponents::Points do
-  subject(:svg_points) { SvgComponents::Points.new(glucose_points) }
+RSpec.describe SvgPoints do
+  subject(:svg_points) { SvgPoints.new(glucose_points) }
 
   let(:glucose_points) { GlucosePoints.new(raw_data) }
 

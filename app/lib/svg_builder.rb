@@ -6,7 +6,7 @@ class SvgBuilder
   TIC_COLOR = "white"
 
   def initialize(glucose_points)
-    @svg_points = SvgComponents::Points.new(glucose_points)
+    @svg_points = SvgPoints.new(glucose_points)
     @svg_canvas = Victor::SVG.new viewBox: [0, 0, 1000, 1000],
                                  preserveAspectRatio: :none,
                                  height: "95%",
