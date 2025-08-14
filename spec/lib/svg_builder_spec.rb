@@ -85,7 +85,7 @@ RSpec.describe SvgBuilder do
     end
 
     describe "things which don't depend on the data" do
-      let(:data ) { GlucosePoints.new([]) }
+      let(:data) { GlucosePoints.new([]) }
 
       it 'has an svg width' do
         expect(svg['width'].value).to eq "100%"
