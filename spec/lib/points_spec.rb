@@ -88,11 +88,11 @@ RSpec.describe SvgComponents::Points do
     end
 
     it "#graph_y_min returns the correct value" do
-      expect(svg_points.graph_y_min).to eq(SvgBuilder::HEALTHY_SUGAR_LOW)
+      expect(svg_points.graph_y_min).to eq(GlucosePoints::HEALTHY_SUGAR_LOW)
     end
 
     it "#graph_y_max returns the healthy sugar high value" do
-      expect(svg_points.graph_y_max).to eq(SvgBuilder::HEALTHY_SUGAR_HIGH)
+      expect(svg_points.graph_y_max).to eq(GlucosePoints::HEALTHY_SUGAR_HIGH)
     end
   end
 end

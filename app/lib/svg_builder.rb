@@ -1,7 +1,5 @@
 class SvgBuilder
   # Put these somewhere else.
-  HEALTHY_SUGAR_LOW = 70
-  HEALTHY_SUGAR_HIGH = 180
 
   STROKE_COLOR = "white"
   TEXT_COLOR = "white"
@@ -64,8 +62,8 @@ class SvgBuilder
   end
 
   def draw_healthy_sugar_lines
-    draw_sugar_line(HEALTHY_SUGAR_HIGH, "red", "high-sugar")
-    draw_sugar_line(HEALTHY_SUGAR_LOW, "red", "low-sugar")
+    draw_sugar_line(GlucosePoints::HEALTHY_SUGAR_HIGH, "red", "high-sugar")
+    draw_sugar_line(GlucosePoints::HEALTHY_SUGAR_LOW, "red", "low-sugar")
   end
 
   def draw_graph

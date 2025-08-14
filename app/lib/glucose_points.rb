@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class GlucosePoints
+
+  HEALTHY_SUGAR_LOW = 70
+  HEALTHY_SUGAR_HIGH = 180
+
   attr_reader :points
 
   include Enumerable
