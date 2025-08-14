@@ -1,12 +1,7 @@
 # frozen_string_literal: true
 
 module SvgComponents
-  class GlucoseHistoryLine
-    def initialize(svg_canvas, svg_points)
-      @svg_canvas = svg_canvas
-      @svg_points = svg_points
-    end
-
+  class GlucoseHistoryLine < SvgComponents::Base
     def draw
       @svg_canvas.polyline points: @svg_points.polyline_points,
                            fill: :none,

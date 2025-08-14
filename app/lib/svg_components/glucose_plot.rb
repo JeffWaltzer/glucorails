@@ -1,12 +1,7 @@
 # frozen_string_literal: true
 
 module SvgComponents
-  class GlucosePlot
-    def initialize(svg_canvas, svg_points)
-      @svg_canvas = svg_canvas
-      @svg_points = svg_points
-    end
-
+  class GlucosePlot < SvgComponents::Base
     def draw
       @svg_canvas.svg viewBox: @svg_points.viewbox,
                       preserveAspectRatio: :none,

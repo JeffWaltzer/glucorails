@@ -12,8 +12,8 @@ class SvgComponents::YTicMark <  SvgComponents::TicMark
   private
 
   def y_tick_label(svg_canvas)
-    glucose_value = ((@data.graph_y_max - @data.graph_y_min) * @index/@number_of_tics.to_f +
-                      @data.graph_y_min).round
+    glucose_value = ((@svg_points.graph_y_max - @svg_points.graph_y_min) * @index/@number_of_tics.to_f +
+                      @svg_points.graph_y_min).round
 
     svg_canvas.text glucose_value,
                     x: 12,

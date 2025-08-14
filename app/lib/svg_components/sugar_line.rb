@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 module SvgComponents
-  class SugarLine
+  class SugarLine < SvgComponents::Base
 
 
     def initialize(svg_canvas, svg_points, glucose_value, id)
-      @svg_canvas = svg_canvas
-      @svg_points = svg_points
+      super(svg_canvas, svg_points)
       @glucose_value = glucose_value
       @id = id
     end

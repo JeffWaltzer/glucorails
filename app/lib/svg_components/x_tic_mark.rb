@@ -24,8 +24,8 @@ class SvgComponents::XTicMark < SvgComponents::TicMark
 
   def tick_time
     Time.at(
-      @data.viewbox_width * @index/@number_of_tics +
-      @data.graph_x_min + @data.start_time
+      @svg_points.viewbox_width * @index / @number_of_tics +
+      @svg_points.graph_x_min + @svg_points.start_time
     )
   end
 

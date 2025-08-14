@@ -35,7 +35,7 @@ RSpec.describe SvgBuilder do
     expect(y_tick_labels[index]['y']).to eq(expected_y_position)
   end
 
-  subject(:svg_builder) { described_class.new(data) }
+  subject(:svg_builder) { described_class.new(svg_points) }
 
   describe "#render" do
     let(:xml) do
@@ -77,7 +77,7 @@ RSpec.describe SvgBuilder do
 
 
     describe "when there is no data" do
-      let(:data) { GlucosePoints.new([]) }
+      let(:svg_points) { GlucosePoints.new([]) }
 
       it "copes sanely" do
         expect(no_data_message).to eq("No data")
@@ -85,7 +85,7 @@ RSpec.describe SvgBuilder do
     end
 
     describe "things which don't depend on the data" do
-      let(:data) { GlucosePoints.new([]) }
+      let(:svg_points) { GlucosePoints.new([]) }
 
       it 'has an svg width' do
         expect(svg['width'].value).to eq "100%"
@@ -101,7 +101,7 @@ RSpec.describe SvgBuilder do
     end
 
     describe "with the default data" do
-      let(:data) do
+      let(:svg_points) do
         GlucosePoints.new(
           [
             [ DateTime.parse("2025-02-14T03:56-500"), 308 ],
@@ -213,7 +213,7 @@ RSpec.describe SvgBuilder do
     end
 
     describe "with data that spans several days" do
-      let(:data) do
+      let(:svg_points) do
         GlucosePoints.new(
           [
             [ DateTime.parse("2025-02-14T03:56-500"), 60 ],
@@ -270,7 +270,7 @@ RSpec.describe SvgBuilder do
 
 
     describe "with data that is entirely with health limits" do
-      let(:data) do
+      let(:svg_points) do
         GlucosePoints.new(
           [
             [ DateTime.parse("2025-02-14T03:56-500"),  75 ],

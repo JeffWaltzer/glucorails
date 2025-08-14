@@ -12,12 +12,12 @@ module SvgComponents
     end
 
     def draw
-      @canvas.line id: "x-axis",
-                   x1: 0,
-                   x2: 1000,
-                   y1: 999,
-                   y2: 999,
-                   stroke: AXIS_COLOR
+      @svg_canvas.line id: "x-axis",
+                       x1: 0,
+                       x2: 1000,
+                       y1: 999,
+                       y2: 999,
+                       stroke: AXIS_COLOR
       draw_tics
     end
   end
