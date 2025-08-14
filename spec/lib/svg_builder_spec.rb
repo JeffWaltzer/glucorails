@@ -6,8 +6,8 @@ RSpec.describe SvgBuilder do
   def has_x_tick_mark(index)
     expect(x_ticks[index]['x1']).to eq((index * 100).to_s)
     expect(x_ticks[index]['x2']).to eq((index * 100).to_s)
-    expect(x_ticks[index]['y1']).to eq '1000'
-    expect(x_ticks[index]['y2']).to eq '990'
+    expect(x_ticks[index]['y1']).to eq '959'
+    expect(x_ticks[index]['y2']).to eq '949'
   end
 
   def has_y_tick_mark(index)
@@ -20,13 +20,13 @@ RSpec.describe SvgBuilder do
   def has_correct_x_tick_date_label(index, expected_text:, expected_x_position:)
     expect(x_tick_date_text[index]).to eq(expected_text)
     expect(x_tick_date_labels[index]['x']).to eq(expected_x_position)
-    expect(x_tick_date_labels[index]['y']).to eq('965')
+    expect(x_tick_date_labels[index]['y']).to eq('975')
   end
 
   def has_correct_x_tick_time_label(index, expected_text:, expected_x_position:)
     expect(x_tick_time_text[index]).to eq(expected_text)
     expect(x_tick_time_labels[index]['x']).to eq(expected_x_position)
-    expect(x_tick_time_labels[index]['y']).to eq('985')
+    expect(x_tick_time_labels[index]['y']).to eq('995')
   end
 
   def has_correct_y_tick_label(index, expected_text:, expected_y_position:)
@@ -112,11 +112,13 @@ RSpec.describe SvgBuilder do
       end
 
       it 'has x-axis' do
-        expect(x_line['x1'].value).to eq '0'
+        expect(x_line['x1'].value).to eq '50'
         expect(x_line['x2'].value).to eq '1000'
-        expect(x_line['y1'].value).to eq '999'
-        expect(x_line['y2'].value).to eq '999'
+        expect(x_line['y1'].value).to eq '949'
+        expect(x_line['y2'].value).to eq '949'
       end
+
+      it 'plot starts shifted over'
 
        it "has a low-sugar line" do
         expect(low_sugar_line_value).to eq("238")
