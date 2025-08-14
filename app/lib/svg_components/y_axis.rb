@@ -3,12 +3,12 @@
 module SvgComponents
   class YAxis < Axis
 
-    def number_of_ticks
+    def number_of_tics
       10
     end
 
     def draw_tics
-      draw_axis_ticks(YTicMark, number_of_ticks)
+      draw_axis_ticks(YTicMark)
     end
 
     def draw

@@ -8,7 +8,7 @@ module SvgComponents
     end
 
     def draw_tics
-      draw_axis_ticks(XTicMark, number_of_tics)
+      draw_axis_ticks(XTicMark)
     end
 
     def draw
