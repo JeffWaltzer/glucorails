@@ -1,5 +1,9 @@
 class SvgComponents::Axis < SvgComponents::Base
 
+  def draw_tics
+    draw_axis_ticks(tic_mark_class)
+  end
+
   AXIS_COLOR = "#fff"
 
   def draw_axis_ticks(tik_klass)

@@ -7,8 +7,8 @@ module SvgComponents
       10
     end
 
-    def draw_tics
-      draw_axis_ticks(YTicMark)
+    def tic_mark_class
+      YTicMark
     end
 
     def draw
