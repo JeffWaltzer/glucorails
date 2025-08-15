@@ -10,13 +10,6 @@ RSpec.describe SvgBuilder do
     expect(x_ticks[index]['y2']).to eq '949'
   end
 
-  def has_y_tick_mark(index)
-    expect(y_ticks[index]['x1']).to eq '0'
-    expect(y_ticks[index]['x2']).to eq '10'
-    expect(y_ticks[index]['y1']).to eq (index* 100).to_s
-    expect(y_ticks[index]['y2']).to eq (index* 100).to_s
-  end
-
   def has_correct_x_tick_date_label(index, expected_text:, expected_x_position:)
     expect(x_tick_date_text[index]).to eq(expected_text)
     expect(x_tick_date_labels[index]['x']).to eq(expected_x_position)
@@ -33,6 +26,13 @@ RSpec.describe SvgBuilder do
     expect(y_tick_text[index]).to eq expected_text
     expect(y_tick_labels[index]['x']).to eq('12')
     expect(y_tick_labels[index]['y']).to eq(expected_y_position)
+  end
+
+  def has_y_tick_mark(index)
+    expect(y_ticks[index]['x1']).to eq '40'
+    expect(y_ticks[index]['x2']).to eq '50'
+    expect(y_ticks[index]['y1']).to eq ((10 - index) * 95).to_s
+    expect(y_ticks[index]['y2']).to eq ((10 - index) * 95).to_s
   end
 
   subject(:svg_builder) { described_class.new(svg_points) }
@@ -56,7 +56,7 @@ RSpec.describe SvgBuilder do
     let(:high_sugar_line) { xml.at_xpath('/svg/svg/line[@id="high-sugar"]')&.attributes }
     let(:high_sugar_line_value) { high_sugar_line['y1'].value }
 
-    let(:low_sugar_line)  { xml.at_xpath('/svg/svg/line[@id="low-sugar"]')&.attributes }
+    let(:low_sugar_line) { xml.at_xpath('/svg/svg/line[@id="low-sugar"]')&.attributes }
     let(:low_sugar_line_value) { low_sugar_line['y1'].value }
 
     let(:no_data_message) { xml.at_xpath('/svg/text').text.strip }
@@ -74,7 +74,6 @@ RSpec.describe SvgBuilder do
     let(:x_tick_time_labels) { xml.css('.x-tick-time-label') }
     let(:x_tick_date_text) { x_tick_date_labels.map(&:text).map(&:strip) }
     let(:x_tick_time_text) { x_tick_time_labels.map(&:text).map(&:strip) }
-
 
     describe "when there is no data" do
       let(:svg_points) { GlucosePoints.new([]) }
@@ -104,9 +103,9 @@ RSpec.describe SvgBuilder do
       let(:svg_points) do
         GlucosePoints.new(
           [
-            [ DateTime.parse("2025-02-14T03:56-500"), 308 ],
-            [ DateTime.parse("2025-02-14T04:01-500"), 308 ],
-            [ DateTime.parse("2025-02-14T04:06-500"), 299 ]
+            [DateTime.parse("2025-02-14T03:56-500"), 308],
+            [DateTime.parse("2025-02-14T04:01-500"), 308],
+            [DateTime.parse("2025-02-14T04:06-500"), 299]
           ]
         )
       end
@@ -120,7 +119,7 @@ RSpec.describe SvgBuilder do
 
       it 'plot starts shifted over'
 
-       it "has a low-sugar line" do
+      it "has a low-sugar line" do
         expect(low_sugar_line_value).to eq("238")
       end
 
@@ -129,14 +128,15 @@ RSpec.describe SvgBuilder do
       end
 
       it "has the correct y[0] tic label" do
-        has_correct_y_tick_label 0, expected_text: "70", expected_y_position: "1005"
+        has_correct_y_tick_label 0, expected_text: "70", expected_y_position: "955"
       end
 
       it "has the correct y[5] tic label" do
-        has_correct_y_tick_label 5, expected_text: "189", expected_y_position: "505"
+        has_correct_y_tick_label 5, expected_text: "189", expected_y_position: "480"
       end
 
       it 'has the correct y[10] tic label' do
+        #TODO we need to avoid clipping top number (pad on top?)
         has_correct_y_tick_label 10, expected_text: "308", expected_y_position: "5"
       end
 
@@ -165,10 +165,10 @@ RSpec.describe SvgBuilder do
       end
 
       it 'has y-axis' do
-        expect(y_line['x1'].value).to eq '1'
-        expect(y_line['x2'].value).to eq '1'
+        expect(y_line['x1'].value).to eq '50'
+        expect(y_line['x2'].value).to eq '50'
         expect(y_line['y1'].value).to eq '0'
-        expect(y_line['y2'].value).to eq '1000'
+        expect(y_line['y2'].value).to eq '950'
       end
 
       it "has correct 1st x tick" do
@@ -218,9 +218,9 @@ RSpec.describe SvgBuilder do
       let(:svg_points) do
         GlucosePoints.new(
           [
-            [ DateTime.parse("2025-02-14T03:56-500"), 60 ],
-            [ DateTime.parse("2025-02-15T04:01-500"), 150 ],
-            [ DateTime.parse("2025-02-16T04:06-500"), 200 ]
+            [DateTime.parse("2025-02-14T03:56-500"), 60],
+            [DateTime.parse("2025-02-15T04:01-500"), 150],
+            [DateTime.parse("2025-02-16T04:06-500"), 200]
           ]
         )
       end
@@ -234,11 +234,11 @@ RSpec.describe SvgBuilder do
       end
 
       it "has the correct y[0] tic label" do
-        has_correct_y_tick_label 0, expected_text: "60", expected_y_position: "1005"
+        has_correct_y_tick_label 0, expected_text: "60", expected_y_position: "955"
       end
 
       it "has the correct y[5] tic label" do
-        has_correct_y_tick_label 5, expected_text: "130", expected_y_position: "505"
+        has_correct_y_tick_label 5, expected_text: "130", expected_y_position: "480"
       end
 
       it 'has the correct y[10] tic label' do
@@ -270,14 +270,13 @@ RSpec.describe SvgBuilder do
       end
     end
 
-
     describe "with data that is entirely with health limits" do
       let(:svg_points) do
         GlucosePoints.new(
           [
-            [ DateTime.parse("2025-02-14T03:56-500"),  75 ],
-            [ DateTime.parse("2025-02-15T04:01-500"), 150 ],
-            [ DateTime.parse("2025-02-16T04:06-500"), 160 ]
+            [DateTime.parse("2025-02-14T03:56-500"), 75],
+            [DateTime.parse("2025-02-15T04:01-500"), 150],
+            [DateTime.parse("2025-02-16T04:06-500"), 160]
           ]
         )
       end
@@ -291,11 +290,11 @@ RSpec.describe SvgBuilder do
       end
 
       it "has the correct y[0] tic label" do
-        has_correct_y_tick_label 0, expected_text: "70", expected_y_position: "1005"
+        has_correct_y_tick_label 0, expected_text: "70", expected_y_position: "955"
       end
 
       it "has the correct y[5] tic label" do
-        has_correct_y_tick_label 5, expected_text: "125", expected_y_position: "505"
+        has_correct_y_tick_label 5, expected_text: "125", expected_y_position: "480"
       end
 
       it 'has the correct y[10] tic label' do
