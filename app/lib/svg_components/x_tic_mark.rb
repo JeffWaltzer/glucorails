@@ -1,20 +1,20 @@
 class SvgComponents::XTicMark < SvgComponents::TicMark
   def draw
     @svg_canvas.line class: "x-tick",
-                     x1: 100*@index,
-                     x2: 100*@index,
+                     x1: 95*@index + 50,    
+                     x2: 95*@index + 50,
                      y1: 959,
                      y2: 949,
                      stroke: TIC_COLOR
 
     @svg_canvas.text x_tick_date_label,
-                     x: 100*@index - 17,
+                     x: 95*@index - 17 + 50,
                      y: 975,
                      style: "fill: #{TEXT_COLOR}",
                      class: "x-tick-date-label"
 
     @svg_canvas.text x_tick_time_label,
-                    x: 100*@index - 17,
+                    x: 95*@index - 17 + 50,
                     y: 995,
                     style: "fill: #{TEXT_COLOR}",
                     class: "x-tick-time-label"
