@@ -15,7 +15,7 @@ class SvgComponents::XTicMark < SvgComponents::TicMark
 
     @svg_canvas.text x_tick_time_label,
                     x: SvgComponents::Base::scale_to_x(@index)-17,
-                    y: scale_to_x(10)-5,
+                    y: SvgComponents::PLOT_HEIGHT + 45,
                     style: "fill: #{TEXT_COLOR}",
                     class: "x-tick-time-label"
   end
