@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module SvgComponents
+  PLOT_LEFT = 50
+  PLOT_TOP = 0
+  PLOT_WIDTH = 950
+  PLOT_HEIGHT = 950
+
   class Base
 
     def initialize(svg_canvas, svg_points)

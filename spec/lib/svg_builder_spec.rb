@@ -163,10 +163,10 @@ RSpec.describe SvgBuilder do
       end
 
       it 'has y-axis' do
-        expect(y_line['x1'].value).to eq '50'
-        expect(y_line['x2'].value).to eq '50'
-        expect(y_line['y1'].value).to eq '0'
-        expect(y_line['y2'].value).to eq '950'
+        expect(y_line['x1'].value).to eq SvgComponents::PLOT_LEFT.to_s
+        expect(y_line['x2'].value).to eq SvgComponents::PLOT_LEFT.to_s
+        expect(y_line['y1'].value).to eq SvgComponents::PLOT_TOP.to_s
+        expect(y_line['y2'].value).to eq SvgComponents::PLOT_HEIGHT.to_s
       end
 
       it "has correct 1st x tick" do
