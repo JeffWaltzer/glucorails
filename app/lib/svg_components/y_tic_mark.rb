@@ -2,8 +2,8 @@ class SvgComponents::YTicMark < SvgComponents::TicMark
   def draw
     index = @number_of_tics - @index
     @svg_canvas.line class: "y-tick",
-                     x1: scale_to_x(0)-10,
-                     x2:scale_to_x(0),
+                     x1: SvgComponents::PLOT_LEFT-10,
+                     x2: SvgComponents::PLOT_LEFT,
                      y1: scale_to_y(index),
                      y2: scale_to_y(index),
                      stroke: TIC_COLOR
