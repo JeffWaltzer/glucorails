@@ -31,8 +31,8 @@ RSpec.describe SvgBuilder do
   def has_y_tick_mark(index)
     expect(y_ticks[index]['x1']).to eq '40'
     expect(y_ticks[index]['x2']).to eq '50'
-    expect(y_ticks[index]['y1']).to eq ((10 - index) * 95).to_s
-    expect(y_ticks[index]['y2']).to eq ((10 - index) * 95).to_s
+    expect(y_ticks[index]['y1']).to eq SvgComponents::Base::scale_to_y(10 - index).to_s
+    expect(y_ticks[index]['y2']).to eq SvgComponents::Base::scale_to_y(10 - index).to_s
   end
 
   subject(:svg_builder) { described_class.new(svg_points) }

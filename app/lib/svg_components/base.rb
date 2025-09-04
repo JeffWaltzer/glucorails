@@ -8,8 +8,20 @@ module SvgComponents
       @svg_points = svg_points
     end
 
-    def self.scale_to_x(value)
-      95 * value + 50
+    def self.scale_to_x(index)
+      95 * index + 50
+    end
+
+    def self.scale_to_y(index)
+      95 * (index)
+    end
+
+    def scale_to_x(index)
+      SvgComponents::Base::scale_to_x(index)
+    end
+
+    def scale_to_y(index)
+      SvgComponents::Base::scale_to_y(index)
     end
 
   end
