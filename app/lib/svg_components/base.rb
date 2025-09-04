@@ -6,6 +6,9 @@ module SvgComponents
   PLOT_WIDTH = 950
   PLOT_HEIGHT = 950
 
+  NUMBER_OF_X_TICKS = 10
+  NUMBER_OF_Y_TICKS = 10
+
   class Base
 
     def initialize(svg_canvas, svg_points)
@@ -13,12 +16,14 @@ module SvgComponents
       @svg_points = svg_points
     end
 
+
     def self.scale_to_x(index)
-      95 * index + 50
+      PLOT_WIDTH / NUMBER_OF_X_TICKS * index + PLOT_LEFT
     end
 
+
     def self.scale_to_y(index)
-      95 * (index)
+      PLOT_HEIGHT / NUMBER_OF_Y_TICKS * index
     end
 
     def scale_to_x(index)
