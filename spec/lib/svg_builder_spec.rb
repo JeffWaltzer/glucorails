@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe SvgBuilder do
   def has_x_tick_mark(index)
-    expect(x_ticks[index]['x1']).to eq((index * 100).to_s)
-    expect(x_ticks[index]['x2']).to eq((index * 100).to_s)
+    expect(x_ticks[index]['x1']).to eq((index * 95 + 50).to_s)
+    expect(x_ticks[index]['x2']).to eq((index * 95 + 50).to_s)
     expect(x_ticks[index]['y1']).to eq '959'
     expect(x_ticks[index]['y2']).to eq '949'
   end
@@ -117,8 +117,6 @@ RSpec.describe SvgBuilder do
         expect(x_line['y2'].value).to eq '949'
       end
 
-      it 'plot starts shifted over'
-
       it "has a low-sugar line" do
         expect(low_sugar_line_value).to eq("238")
       end
@@ -141,19 +139,19 @@ RSpec.describe SvgBuilder do
       end
 
       it 'has the correct x[0] date label' do
-        has_correct_x_tick_date_label 0, expected_text: "02/14", expected_x_position: "-17"
+        has_correct_x_tick_date_label 0, expected_text: "02/14", expected_x_position: "33"
       end
 
       it 'has the correct x[0] tick time label' do
-        has_correct_x_tick_time_label(0, expected_text: "3:56 am", expected_x_position: "-17")
+        has_correct_x_tick_time_label(0, expected_text: "3:56 am", expected_x_position: "33")
       end
 
       it 'has the correct x[5] date label' do
-        has_correct_x_tick_date_label 5, expected_text: "02/14", expected_x_position: "483"
+        has_correct_x_tick_date_label 5, expected_text: "02/14", expected_x_position: "508"
       end
 
       it 'has the correct x[5] tick time label' do
-        has_correct_x_tick_time_label(5, expected_text: "4:01 am", expected_x_position: "483")
+        has_correct_x_tick_time_label(5, expected_text: "4:01 am", expected_x_position: "508")
       end
 
       it 'has the correct x[10] tick date label' do
@@ -246,19 +244,19 @@ RSpec.describe SvgBuilder do
       end
 
       it 'has the correct x[0] date label' do
-        has_correct_x_tick_date_label 0, expected_text: "02/14", expected_x_position: "-17"
+        has_correct_x_tick_date_label 0, expected_text: "02/14", expected_x_position: "33"
       end
 
       it 'has the correct x[0] tick time label' do
-        has_correct_x_tick_time_label(0, expected_text: "3:56 am", expected_x_position: "-17")
+        has_correct_x_tick_time_label(0, expected_text: "3:56 am", expected_x_position: "33")
       end
 
       it 'has the correct x[5] date label' do
-        has_correct_x_tick_date_label 5, expected_text: "02/15", expected_x_position: "483"
+        has_correct_x_tick_date_label 5, expected_text: "02/15", expected_x_position: "508"
       end
 
       it 'has the correct x[5] tick time label' do
-        has_correct_x_tick_time_label(5, expected_text: "4:01 am", expected_x_position: "483")
+        has_correct_x_tick_time_label(5, expected_text: "4:01 am", expected_x_position: "508")
       end
 
       it 'has the correct x[10] tick date label' do
