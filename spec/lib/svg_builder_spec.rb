@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe SvgBuilder do
   def has_x_tick_mark(index)
-    expect(x_ticks[index]['x1']).to eq((index * 95 + 50).to_s)
-    expect(x_ticks[index]['x2']).to eq((index * 95 + 50).to_s)
+    expect(x_ticks[index]['x1']).to eq(SvgComponents::Base::scale_to_x(index).to_s)
+    expect(x_ticks[index]['x2']).to eq(SvgComponents::Base::scale_to_x(index).to_s)
     expect(x_ticks[index]['y1']).to eq '959'
     expect(x_ticks[index]['y2']).to eq '949'
   end

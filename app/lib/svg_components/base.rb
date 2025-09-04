@@ -8,5 +8,9 @@ module SvgComponents
       @svg_points = svg_points
     end
 
+    def self.scale_to_x(value)
+      95 * value + 50
+    end
+
   end
 end
