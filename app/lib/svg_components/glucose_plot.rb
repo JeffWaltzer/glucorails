@@ -10,9 +10,10 @@ module SvgComponents
                       x: PLOT_LEFT,
                       y: PLOT_TOP,
                       width: PLOT_WIDTH,
-                      height: PLOT_HEIGHT do
+                      height: PLOT_HEIGHT,
+                      style: "background: red" do
 
-        SvgComponents::GlucoseHistoryLine.new(@svg_canvas, @svg_points).draw
+        SvgComponents::GlucoseHistoryPoints.new(@svg_canvas, @svg_points).draw
         SvgComponents::SugarLine.new(@svg_canvas, @svg_points, GlucosePoints::HEALTHY_SUGAR_HIGH, "high-sugar").draw
         SvgComponents::SugarLine.new(@svg_canvas, @svg_points, GlucosePoints::HEALTHY_SUGAR_LOW, "low-sugar").draw
       end

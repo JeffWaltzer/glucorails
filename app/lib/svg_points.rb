@@ -7,6 +7,8 @@ class SvgPoints
     points.map { |p| point_string(p) }.join(" ")
   end
 
+  # def plot_points
+
   def viewbox
     [
       viewbox_left,
@@ -60,7 +62,7 @@ class SvgPoints
     points.empty?
   end
 
-  private
+  # private
 
   attr_reader :points
 
